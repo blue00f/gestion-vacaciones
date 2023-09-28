@@ -31,8 +31,8 @@ module.exports = {
   },
   plugins: ["react", "prettier"],
   rules: {
-    indent: ["error", 2],
-    "linebreak-style": "off",
-    quotes: ["error", "double"],
+    "comma-dangle": ["error", "always-multiline"],
+    "no-multiple-empty-lines": ["error", { max: 1 }],
   },
 }
+
