@@ -32,7 +32,7 @@ function Login() {
               required
             />
           </div>
-          <div className="my-4 flex items-center">
+          <div className="my-4 flex items-center text-white">
             <input className="h-4 w-4 mr-2" type="checkbox" id="userRemember" />
             <label for="userRemember">Recuerdame</label>
           </div>
