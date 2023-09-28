@@ -1,7 +1,7 @@
 function Login() {
   return (
     <>
-      <div className="bg-gray-200 rounded py-16 px-12 m-16 flex flex-col items-center justify-center">
+      <div className="bg-gray-800 rounded py-16 px-12 m-16 flex flex-col items-center justify-center">
         <img
           className="rounded-full h-32 w-32"
           src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"
