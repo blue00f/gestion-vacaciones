@@ -12,36 +12,39 @@ const connectionString = process.env.DATABASE_URL ?? DEFAULT_CONFIG
 const connection = await mysql.createConnection(connectionString)
 
 export class VacationModel {
-  static async getAll({ genre }) {
-    console.log('getAll')
 
-    // get genre ids from database table using genre names
+  static async getAllVacation({vacations}) 
+  {
+    const [vacations] = await connection.query(
+      `SELECT id_vacacion, legajo_id , gerente_id, diasTomados, fechaInicio, fechaFin, fechaSolicitud, estado, comentarios
+        FROM vacaciones;`)
+        return vacations; 
+    // :D
   }
-
-  static async getById({ id }) {
-    const [movies] = await connection.query(
-      `SELECT title, year, director, duration, poster, rate, BIN_TO_UUID(id) id
-        FROM movie WHERE id = UUID_TO_BIN(?);`,
-      [id],
-    )
-
-    if (movies.length === 0) return null
-
-    return movies[0]
-  }
-
-  static async create({ input }) {
+                                                         
+  static async getByIdVacation({id}) {
+    const [vacations] = await connection.query(
+      `SELECT id_vacacion, legajo_id , gerente_id, diasTomados, fechaInicio, fechaFin, fechaSolicitud, estado, comentarios 
+        FROM vaciones WHERE id_vacacion = UUID_TO_BIN(?);`,
+      [id] );
+    
+    if (vacations.length === 0) {return null}
+    else {return vacations[0]}
+  }//:D
+ 
+  static async createVacation({ input }) //INSERT
+  {
     const {
-      genre: genreInput, // genre is an array
-      title,
-      year,
-      duration,
-      director,
-      rate,
-      poster,
+      id_vacacion, 
+      legajo_id ,
+      gerente_id, 
+      diasTomados,
+      fechaInicio,
+      fechaFin,
+      fechaSolicitud, 
+      estado,
+      comentarios 
     } = input
-
-    // todo: crear la conexión de genre
 
     // crypto.randomUUID()
     const [uuidResult] = await connection.query('SELECT UUID() uuid;')
@@ -49,31 +52,34 @@ export class VacationModel {
 
     try {
       await connection.query(
-        `INSERT INTO movie (id, title, year, director, duration, poster, rate)
-          VALUES (UUID_TO_BIN("${uuid}"), ?, ?, ?, ?, ?, ?);`,
-        [title, year, director, duration, poster, rate],
+        `INSERT INTO movie (id_vacacion, legajo_id , gerente_id, diasTomados, fechaInicio, fechaFin, fechaSolicitud, estado, comentarios )
+          VALUES (UUID_TO_BIN("${uuid}"), ?, ?, ?, ?, ?, ?, ?, ?);`,
+        [id_vacacion, legajo_id ,gerente_id, diasTomados,fechaInicio,fechaFin,fechaSolicitud, estado, comentarios],
       )
     } catch (e) {
       // puede enviarle información sensible
-      throw new Error('Error creating movie')
+      throw new Error('Error creating vacation')
       // enviar la traza a un servicio interno
       // sendLog(e)
-    }
+      
+    }//:V
 
-    const [movies] = await connection.query(
-      `SELECT title, year, director, duration, poster, rate, BIN_TO_UUID(id) id
-        FROM movie WHERE id = UUID_TO_BIN(?);`,
-      [uuid],
-    )
+  //  const [movies] = await connection.query(
+  //     `SELECT title, year, director, duration, poster, rate,     BIN_TO_UUID(id) id
+  //       FROM movie WHERE id = UUID_TO_BIN(?);`,
+  //     [uuid],
+  //   )
 
     return movies[0]
   }
 
-  static async delete({ id }) {
-    // ejercio fácil: crear el delete
+  
+  static async updateVacation({ estado, id }) {
+    // ejercicio fácil: crear el update
+    const [vacations] = await connection.query( `UPDATE vacaciones SET estado = ? WHERE id_vacacion = UUID_TO_BIN(?)`,
+    [estado, id]);
+
+    return vacations;
   }
 
-  static async update({ id, input }) {
-    // ejercicio fácil: crear el update
-  }
 }
