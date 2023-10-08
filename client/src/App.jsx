@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import React from "react"
 import Header from "./components/Header"
 import Login from "./components/Login"
@@ -12,9 +12,10 @@ import "flowbite-datepicker"
 function App() {
   return (
     <>
-      <Header />
+       <Header/>
       <Routes>
-        <Route exact path="/" element={<Login />} />
+      <Route path="*" element={<Navigate to="/login" />} />
+        <Route exact path="/login" element={<Login />} />
         <Route exact path="/calendar" element={<Calendar />} />
         <Route exact path="/dashboard" element={<Dashboard />} />
         <Route exact path="/formemployee" element={<FormEmployee />} />
