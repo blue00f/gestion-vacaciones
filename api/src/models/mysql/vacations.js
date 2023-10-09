@@ -13,71 +13,45 @@ const connection = await mysql.createConnection(connectionString)
 
 export class VacationModel {
 
-  static async getAllVacation({vacations}) 
+  static async getAllVacation({}) 
   {
     const [vacations] = await connection.query(
-      `SELECT id_vacacion, legajo_id , gerente_id, diasTomados, fechaInicio, fechaFin, fechaSolicitud, estado, comentarios
-        FROM vacaciones;`)
+      `CALL sp_ConsultarTodasLasVacaciones()`)
         return vacations; 
     // :D
   }
-                                                         
-  static async getByIdVacation({id}) {
-    const [vacations] = await connection.query(
-      `SELECT id_vacacion, legajo_id , gerente_id, diasTomados, fechaInicio, fechaFin, fechaSolicitud, estado, comentarios 
-        FROM vaciones WHERE id_vacacion = UUID_TO_BIN(?);`,
-      [id] );
-    
-    if (vacations.length === 0) {return null}
-    else {return vacations[0]}
-  }//:D
  
   static async createVacation({ input }) //INSERT
   {
     const {
-      id_vacacion, 
+      fechaInicio, 
+      fechaFin ,
+      comentarios, 
       legajo_id ,
-      gerente_id, 
-      diasTomados,
-      fechaInicio,
-      fechaFin,
-      fechaSolicitud, 
-      estado,
-      comentarios 
+      administrador_id,
     } = input
-
-    // crypto.randomUUID()
-    const [uuidResult] = await connection.query('SELECT UUID() uuid;')
-    const [{ uuid }] = uuidResult
-
+  
     try {
-      await connection.query(
-        `INSERT INTO movie (id_vacacion, legajo_id , gerente_id, diasTomados, fechaInicio, fechaFin, fechaSolicitud, estado, comentarios )
-          VALUES (UUID_TO_BIN("${uuid}"), ?, ?, ?, ?, ?, ?, ?, ?);`,
-        [id_vacacion, legajo_id ,gerente_id, diasTomados,fechaInicio,fechaFin,fechaSolicitud, estado, comentarios],
+       await connection.query(
+        `CALL sp_AltaVacacion (?, ?, ?, ?, ?);`,
+        [fechaInicio, fechaFin , comentarios, legajo_id , administrador_id,],
       )
-    } catch (e) {
-      // puede enviarle información sensible
-      throw new Error('Error creating vacation')
-      // enviar la traza a un servicio interno
-      // sendLog(e)
       
+    } catch (e) {
+      throw new Error('Error creating vacation')
+
     }//:V
 
-  //  const [movies] = await connection.query(
-  //     `SELECT title, year, director, duration, poster, rate,     BIN_TO_UUID(id) id
-  //       FROM movie WHERE id = UUID_TO_BIN(?);`,
-  //     [uuid],
-  //   )
-
-    return movies[0]
+    const [vacations] = await connection.query(//consultar todos los empleados
+        `CALL sp_ConsultarTodasLasVacaciones();`)
+        
+        return vacations;  
   }
 
   
-  static async updateVacation({ estado, id }) {
-    // ejercicio fácil: crear el update
-    const [vacations] = await connection.query( `UPDATE vacaciones SET estado = ? WHERE id_vacacion = UUID_TO_BIN(?)`,
-    [estado, id]);
+  static async updateVacation({ id, estado }) {
+    const [vacations] = await connection.query( `CALL sp_ModificarVacacion(?, ?);`,
+    [id, estado]);
 
     return vacations;
   }
