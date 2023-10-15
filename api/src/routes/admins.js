@@ -1,15 +1,15 @@
 import { Router } from 'express'
-import { AdministratorController } from '../controllers/admins.js'
+import { AdminController } from '../controllers/admins.js'
 
-export const createAdminRouter = ({ administratorModel }) => {
-  const adminsRouter = Router()
+export const createAdminRouter = ({ adminModel }) => {
+  const adminRouter = Router()
 
-  const adminsController = new AdministratorController({ administratorModel })
+  const adminController = new AdminController({ adminModel })
 
-  adminsRouter.get('/', adminsController.getAll)
-  adminsRouter.post('/', adminsController.create)
-  adminsRouter.delete('/:id', adminsController.delete)
-  adminsRouter.patch('/:id', adminsController.update)
+  adminRouter.get('/', adminController.getAll)
+  adminRouter.post('/', adminController.create)
+  adminRouter.delete('/:id', adminController.delete)
+  adminRouter.patch('/:id', adminController.update)
 
   return adminRouter
 }

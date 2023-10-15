@@ -1,17 +1,17 @@
 import z from 'zod'
 
 const employeeSchema = z.object({
-  nombreUsuario: z.string().min(10).max(50).nonempty(),
-  clave: z.record(z.string().min(1), z.number().min(1)),
-  nombre: z.string().min(4).max(50).nonempty(),
-  apellido: z.string().min(4).max(50).nonempty(),
-  fechaNacimiento: z.date().nonempty(),
-  documento: z.number().length(10).nonempty(),
-  correo: z.email().max(50).nonempty(),
-  direccion: z.string().min(10).max(100).nonempty(),
-  antiguedad: z.number().nonnegative().nonempty(),
-  departamento: z.string().min(5).max(50).nonempty(),
-  puesto: z.string().min(5).max(50).nonempty(),
+  nombreUsuario: z.string().min(10).max(50),
+  clave: z.record(z.string().min(1)),
+  nombre: z.string().min(4).max(50),
+  apellido: z.string().min(4).max(50),
+  fechaNacimiento: z.date(),
+  documento: z.number().length(10),
+  correo: z.email().max(50),
+  direccion: z.string().min(10).max(100),
+  antiguedad: z.number().nonnegative(),
+  departamento: z.string().min(5).max(50),
+  puesto: z.string().min(5).max(50),
 })
 
 export function validateEmployee(input) {

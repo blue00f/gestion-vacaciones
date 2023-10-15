@@ -2,13 +2,13 @@ import { Router } from 'express'
 import { EmployeeController } from '../controllers/employees.js'
 
 export const createEmployeeRouter = ({ vacationModel }) => {
-  const employeesRouter = Router()
+  const employeeRouter = Router()
 
   const employeeController = new EmployeeController({ vacationModel })
 
-  employeesRouter.post('/', employeeController.create)
-  employeesRouter.delete('/:id', employeeController.delete)
-  employeesRouter.patch('/:id', employeeController.update)
+  employeeRouter.post('/', employeeController.create)
+  employeeRouter.delete('/:id', employeeController.delete)
+  employeeRouter.patch('/:id', employeeController.update)
 
-  return employeesRouter
+  return employeeRouter
 }
