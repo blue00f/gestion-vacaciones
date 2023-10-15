@@ -31,7 +31,7 @@ const DEFAULT_CONFIG = {
         return 'Administrador desabilitado';
     }//:D
    
-    static async createEmployee({input}, {admins}) //INSERT
+    static async createAdmin({input}, {admins}) //INSERT
     {
       const {
         nombre,

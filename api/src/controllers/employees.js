@@ -1,62 +1,48 @@
-import { validateEmployee, validatePartialEmployee } from '../schemas/movies.js'
+import { validateEmployee, validatePartialEmployee } from '../schemas/employees.js'
 
 export class EmployeeController {
-  constructor({ vacationModel }) {
-    this.vacationModel = vacationModel
+  constructor({ employeeModel }) {
+    this.employeeModel = employeeModel;
   }
 
-  getAll = async (req, res) => {
-    const { genre } = req.query
-    const movies = await this.employeeModel.getAll({ genre })
-    res.json(movies)
+  getAllEmployee = async (req, res) => {
+    const { employees } = req.query
+    const resEmployee = await this.employeeModel.getAllEmployee({ employees });
+    res.json (resEmployee); 
   }
 
-  getById = async (req, res) => {
+  deleteEmployeeById = async (req, res) => {
     const { id } = req.params
-    const employee = await this.employeeModel.getById({ id })
-    if (employee) return res.json(employee)
-    res.status(404).json({ message: 'Movie not found' })
+    const employee = await this.employeeModel.deleteEmployeeById({ id })
+    if (employee) {return res.json(employee)}else{
+    res.status(404).json({ message: 'Employee not found' })}
   }
 
-  create = async (req, res) => {
+  createEmployee = async (req, res) => {
     const result = validateEmployee(req.body)
 
     if (!result.success) {
-      // 422 Unprocessable Entity
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
 
-    const newEmployee = await this.employeeModel.create({ input: result.data })
+    const newEmployee = await this.employeeModel.createEmployee({ input: result.data })
 
     res.status(201).json(newEmployee)
   }
 
-  delete = async (req, res) => {
-    const { id } = req.params
-
-    const result = await this.employeeModel.delete({ id })
-
-    if (result === false) {
-      return res.status(404).json({ message: 'Movie not found' })
-    }
-
-    return res.json({ message: 'Movie deleted' })
-  }
-
-  update = async (req, res) => {
+  updateEmployee = async (req, res) => {
     const result = validatePartialEmployee(req.body)
 
     if (!result.success) {
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
 
-    const { id } = req.params
+    const { id } = req.params;
 
-    const updatedEmployee = await this.employee.update({
-      id,
-      input: result.data,
+    const updatedEmployee = await this.employee.updateEmployee({
+      id, input: result.data
     })
 
-    return res.json(updatedEmployee)
+    return res.json(updatedEmployee);
   }
 }

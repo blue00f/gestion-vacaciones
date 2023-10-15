@@ -1,10 +1,10 @@
-import { Router } from 'express'
+import { Router } from 'express';
 import { VacationController } from '../controllers/vacations.js'
 
-export const createEmployeeRouter = ({ vacationModel }) => {
-  const vacationsRouter = Router()
+export const createVacationRouter = ({ vacationModel }) => {
+  const vacationsRouter = Router();
 
-  const vacationController = new EmployeeController({ vacationModel })
+  const vacationController = new VacationController({ vacationModel })
 
   vacationsRouter.get('/', vacationController.getAll)
   vacationsRouter.post('/', vacationController.create)

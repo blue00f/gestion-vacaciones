@@ -1,16 +1,17 @@
 import express, { json } from 'express'
-import { createEmployeeRouter } from './routes/employees.js'
+ 
 import { createVacationRouter } from './routes/vacations.js'
+ 
 import { corsMiddleware } from './middlewares/cors.js'
 import 'dotenv/config'
 
-export const createApp = ({ vacationModel }) => {
+export const createApp = ({ vacationModel}) => {
   const app = express()
   app.use(json())
   app.use(corsMiddleware())
   app.disable('x-powered-by')
 
-  app.use('/employees', createEmployeeRouter({ vacationModel }))
+  
   app.use('/vacactions', createVacationRouter({ vacationModel }))
 
   const PORT = process.env.PORT ?? 1234

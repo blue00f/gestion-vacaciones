@@ -13,7 +13,7 @@ const connection = await mysql.createConnection(connectionString)
 
 export class VacationModel {
 
-  static async getAllVacation({}) 
+  static async getAllVacations({}) 
   {
     const [vacations] = await connection.query(
       `CALL sp_ConsultarTodasLasVacaciones()`)

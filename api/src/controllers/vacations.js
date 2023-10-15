@@ -1,64 +1,47 @@
-import { validateVacation, validatePartialVacation } from '../schemas/movies.js'
 
+import { validateVacation, validatePartialVacation } from '../schemas/vacations.js';
+ 
 export class VacationController {
-  constructor({ vacationModel }) {
-    this.vacationModel = vacationModel
+  
+  constructor({  vacationModel  }) {
+    this.vacationModel  =  vacationModel ;
   }
 
-  getAll = async (req, res) => {
-    const { genre } = req.query
-    const movies = await this.vacationsModel.getAll({ genre })
-    res.json(movies)
+  getAllVacations = async (req, res) => {
+    const { vacations } = req.query
+    const resVacation = await this.vacationModel.getAllVacations({ vacations });
+    res.json (resVacation); 
   }
 
-  getById = async (req, res) => {
-    const { id } = req.params
-    const vacation = await this.vacationsModel.getById({ id })
-    if (vacation) return res.json(vacation)
-    res.status(404).json({ message: 'Movie not found' })
-  }
-
-  create = async (req, res) => {
-    const result = validateVacation(req.body)
+  createVacation = async (req, res) => {
+    const result = validateVacation(req.body)//actualizar lso datos de validateVacation
 
     if (!result.success) {
-      // 422 Unprocessable Entity
+      
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
 
-    const newVacations = await this.vacationsModel.create({
+    const newVacations = await this.vacationsModel.createVacation({
       input: result.data,
     })
 
     res.status(201).json(newVacations)
   }
 
-  delete = async (req, res) => {
-    const { id } = req.params
-
-    const result = await this.vacationsModel.delete({ id })
-
-    if (result === false) {
-      return res.status(404).json({ message: 'Movie not found' })
-    }
-
-    return res.json({ message: 'Movie deleted' })
-  }
-
-  update = async (req, res) => {
+  
+  updateVacation = async (req, res) => {
     const result = validatePartialVacation(req.body)
 
     if (!result.success) {
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
 
-    const { id } = req.params
+    const { id } = req.params;
+    const { estado } = req.params;
 
-    const updatedVacation = await this.vacation.update({
-      id,
-      input: result.data,
-    })
+    const updatedVacation = await this.vacation.updateVacation({  id,  estado })
 
-    return res.json(updatedVacation)
+    return res.json(updatedVacation);
+
   }
 }
