@@ -6,9 +6,10 @@ export const createEmployeeRouter = ({ vacationModel }) => {
 
   const employeeController = new EmployeeController({ vacationModel })
 
-  employeeRouter.post('/', employeeController.create)
-  employeeRouter.delete('/:id', employeeController.delete)
-  employeeRouter.patch('/:id', employeeController.update)
+  employeeRouter.get('/', employeeController.getAllEmployee)
+  employeeRouter.post('/', employeeController.createEmployee)
+  employeeRouter.delete('/:id', employeeController.deleteEmployeeById)
+  employeeRouter.patch('/:id', employeeController.updateEmployeeById)
 
   return employeeRouter
 }

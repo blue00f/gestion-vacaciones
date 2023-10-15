@@ -11,7 +11,6 @@ export const createApp = ({ vacationModel, adminModel, employeeModel }) => {
   app.use(corsMiddleware())
   app.disable('x-powered-by')
 
-
   app.use('/admins', createAdminRouter({ adminModel }))
   app.use('/employees', createEmployeeRouter({ employeeModel }))
   app.use('/vacations', createVacationRouter({ vacationModel }))

@@ -6,10 +6,10 @@ export const createAdminRouter = ({ adminModel }) => {
 
   const adminController = new AdminController({ adminModel })
 
-  adminRouter.get('/', adminController.getAll)
-  adminRouter.post('/', adminController.create)
-  adminRouter.delete('/:id', adminController.delete)
-  adminRouter.patch('/:id', adminController.update)
+  adminRouter.get('/', adminController.getAllAdmin)
+  adminRouter.post('/', adminController.createAdmin)
+  adminRouter.delete('/:id', adminController.deleteAdminById)
+  adminRouter.patch('/:id', adminController.updateAdminById)
 
   return adminRouter
 }

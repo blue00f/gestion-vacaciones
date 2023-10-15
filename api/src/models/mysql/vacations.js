@@ -2,57 +2,53 @@ import mysql from 'mysql2/promise'
 
 const DEFAULT_CONFIG = {
   host: 'localhost',
-  user: 'administradores',
+  user: 'administrador',
   port: 3306,
   password: 'ADM123',
   database: 'bd_gestion_vacaciones',
 }
+
 const connectionString = process.env.DATABASE_URL ?? DEFAULT_CONFIG
 
 const connection = await mysql.createConnection(connectionString)
 
 export class VacationModel {
-
-  static async getAllVacations({ }) {
+  static async getAllVacations({}) {
     const [vacations] = await connection.query(
-      `CALL sp_ConsultarTodasLasVacaciones()`)
-    return vacations;
-    
+      `CALL usp_ConsultarTodasLasVacaciones()`,
+    )
+    return vacations
   }
 
-  static async createVacation({ input }) 
-  {
-    const {
-      fechaInicio,
-      fechaFin,
-      comentarios,
-      legajo_id,
-      administrador_id,
-    } = input
+  static async createVacation({ input }) {
+    const { fechaInicio, fechaFin, comentarios, legajo_id, administrador_id } =
+      input
 
     try {
-      await connection.query(
-        `CALL sp_AltaVacacion (?, ?, ?, ?, ?);`,
-        [fechaInicio, fechaFin, comentarios, legajo_id, administrador_id,],
-      )
-
+      await connection.query(`CALL usp_AltaVacacion (?, ?, ?, ?, ?);`, [
+        fechaInicio,
+        fechaFin,
+        comentarios,
+        legajo_id,
+        administrador_id,
+      ])
     } catch (e) {
       throw new Error('Error creating vacation')
-
     }
 
     const [vacations] = await connection.query(
-      `CALL sp_ConsultarTodasLasVacaciones();`)
+      `CALL usp_ConsultarTodasLasVacaciones();`,
+    )
 
-    return vacations;
+    return vacations
   }
-
 
   static async updateVacation({ id, estado }) {
-    const [vacations] = await connection.query(`CALL sp_ModificarVacacion(?, ?);`,
-      [id, estado]);
+    const [vacations] = await connection.query(
+      `CALL usp_ModificarVacacion(?, ?);`,
+      [id, estado],
+    )
 
-    return vacations;
+    return vacations
   }
-
 }
