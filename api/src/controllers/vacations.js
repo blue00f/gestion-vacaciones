@@ -9,8 +9,7 @@ export class VacationController {
   }
 
   getAllVacation = async (req, res) => {
-    const { vacations } = req.query
-    const resVacation = await this.vacationModel.getAllVacation({ vacations })
+    const resVacation = await this.vacationModel.getAllVacation({})
     res.json(resVacation)
   }
 

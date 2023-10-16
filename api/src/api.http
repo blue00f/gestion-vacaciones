@@ -1,0 +1,25 @@
+### Obtener todos los admins
+GET http://localhost:1234/admins
+
+### Alta de un admin
+POST http://localhost:1234/admins
+Content-Type: application/json
+
+{
+  "nombre": "Nicole",
+  "apellido": "Saravia",
+  "correo": "nikinicole@gmail.com",
+  "usuario": "nicole123",
+  "clave": "nicole123"
+}
+
+### Borrar a un admin
+DELETE http://localhost:1234/admins/6
+
+### Actualizar a un admin
+PATCH http://localhost:1234/admins/6
+Content-Type: application/json
+
+{
+  "estado": "activo"
+}

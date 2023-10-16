@@ -1,12 +1,12 @@
 import { validateAdmin, validatePartialAdmin } from '../schemas/admins.js'
 
 export class AdminController {
-  constructor({ administratorModel }) {
-    this.administratorModel = administratorModel
+  constructor({ adminModel }) {
+    this.adminModel = adminModel
   }
 
   getAllAdmin = async (req, res) => {
-    const resAdmin = await this.administratorModel.getAllAdmin()
+    const resAdmin = await this.adminModel.getAllAdmin({})
     res.json(resAdmin)
   }
 
@@ -17,7 +17,7 @@ export class AdminController {
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
 
-    const newAdmins = await this.administratorModel.createAdmin({
+    const newAdmins = await this.adminModel.createAdmin({
       input: result.data,
     })
 
@@ -26,7 +26,7 @@ export class AdminController {
 
   deleteAdminById = async (req, res) => {
     const { id } = req.params
-    const resAdmin = await this.administratorModel.deleteAdminById({
+    const resAdmin = await this.adminModel.deleteAdminById({
       id,
     })
     if (resAdmin) return res.json(resAdmin)
@@ -42,7 +42,7 @@ export class AdminController {
 
     const { id } = req.params
 
-    const updatedVacation = await this.administratorModel.updateAdminById({
+    const updatedVacation = await this.adminModel.updateAdminById({
       id,
       input: result.data,
     })

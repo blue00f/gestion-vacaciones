@@ -20,23 +20,18 @@ export class AdminModel {
     return admins
   }
 
-  static async deleteAdminById({ id }) {
-    await connection.query(`CALL usp_BajaAdministrador(?);`, [id])
-    return 'Administrador desabilitado'
-  }
-
   static async createAdmin({ input }) {
     const { nombre, apellido, usuario, clave, correo } = input
     try {
-      await connection.query(`CALL usp_AltaEmpleado(?, ?, ?, ?, ?);`, [
+      await connection.query(`CALL usp_AltaAdministrador(?,?,?,?,?);`, [
         nombre,
         apellido,
+        correo,
         usuario,
         clave,
-        correo,
       ])
     } catch (e) {
-      throw new Error('Error creating administrator.')
+      throw new Error(`Error al crear un administrador`)
     }
 
     const [admins] = await connection.query(
@@ -45,11 +40,21 @@ export class AdminModel {
     return admins
   }
 
-  static async updateAdmin({ id, nombre, apellido, correo, estado }) {
-    const [admins] = await connection.query(
-      `CALL usp_ModificarAdministrador(?,?,?,?,?);`,
-      [id, nombre, apellido, correo, estado],
-    )
-    return admins
+  static async deleteAdminById({ id }) {
+    await connection.query(`CALL usp_BajaAdministrador(?);`, [id])
+    return 'Administrador desabilitado'
+  }
+
+  static async updateAdminById({ id, input }) {
+    const { nombre, apellido, correo, estado } = input
+    try {
+      const [admins] = await connection.query(
+        `CALL usp_ModificarAdministrador(?,?,?,?,?);`,
+        [id, nombre, apellido, correo, estado],
+      )
+      return admins
+    } catch (e) {
+      throw new Error(`Error al crear un administrador`)
+    }
   }
 }

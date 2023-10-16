@@ -13,7 +13,7 @@ const connectionString = process.env.DATABASE_URL ?? DEFAULT_CONFIG
 const connection = await mysql.createConnection(connectionString)
 
 export class VacationModel {
-  static async getAllVacations({}) {
+  static async getAllVacation({}) {
     const [vacations] = await connection.query(
       `CALL usp_ConsultarTodasLasVacaciones()`,
     )
