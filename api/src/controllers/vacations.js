@@ -10,22 +10,26 @@ export class VacationController {
 
   getAllVacation = async (req, res) => {
     const { vacations } = req.query
-    const resVacation = await this.vacationModel.getAllVacation({ vacations })
+    const resVacation = await this.vacationModel.getAllVacation({vacations})
     res.json(resVacation)
   }
 
   createVacation = async (req, res) => {
-    const result = validateVacation(req.body)
-
+    const input = req.body;
+    input.fechaInicio = new Date(input.fechaInicio);
+    input.fechaFin = new Date(input.fechaFin);
+  
+    const result = validateVacation(input);
+  
     if (!result.success) {
-      return res.status(400).json({ error: JSON.parse(result.error.message) })
+      return res.status(400).json({ error: JSON.parse(result.error.message) });
     }
-
-    const newVacations = await this.vacationsModel.createVacation({
+  
+    const newVacations = await this.vacationModel.createVacation({
       input: result.data,
-    })
-
-    res.status(201).json(newVacations)
+    });
+  
+    res.status(201).json(newVacations);
   }
 
   updateVacation = async (req, res) => {

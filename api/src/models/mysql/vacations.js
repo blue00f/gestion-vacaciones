@@ -13,7 +13,7 @@ const connectionString = process.env.DATABASE_URL ?? DEFAULT_CONFIG
 const connection = await mysql.createConnection(connectionString)
 
 export class VacationModel {
-  static async getAllVacations({}) {
+  static async getAllVacation({}) {
     const [vacations] = await connection.query(
       `CALL usp_ConsultarTodasLasVacaciones()`,
     )
@@ -23,7 +23,7 @@ export class VacationModel {
   static async createVacation({ input }) {
     const { fechaInicio, fechaFin, comentarios, legajo_id, administrador_id } =
       input
-
+    
     try {
       await connection.query(`CALL usp_AltaVacacion (?, ?, ?, ?, ?);`, [
         fechaInicio,
@@ -33,14 +33,10 @@ export class VacationModel {
         administrador_id,
       ])
     } catch (e) {
-      throw new Error('Error creating vacation')
+      throw new Error(e)
     }
 
-    const [vacations] = await connection.query(
-      `CALL usp_ConsultarTodasLasVacaciones();`,
-    )
-
-    return vacations
+    
   }
 
   static async updateVacation({ id, estado }) {
