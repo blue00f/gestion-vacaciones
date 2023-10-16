@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `bd_gestion_vacaciones` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `bd_gestion_vacaciones`;
 -- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
 -- Host: localhost    Database: bd_gestion_vacaciones
@@ -32,7 +34,7 @@ CREATE TABLE `administradores` (
   PRIMARY KEY (`id_administrador`),
   KEY `fk_usuario_administrador` (`usuario_id`),
   CONSTRAINT `fk_usuario_administrador` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +43,7 @@ CREATE TABLE `administradores` (
 
 LOCK TABLES `administradores` WRITE;
 /*!40000 ALTER TABLE `administradores` DISABLE KEYS */;
-INSERT INTO `administradores` VALUES (1,3,'Bruno','Roca','brunoroca@gmail.com','Activo'),(2,8,'Sofia','Reynaga','sofi@gmail.com','Activo');
+INSERT INTO `administradores` VALUES (1,3,'Bruno','Roca','brunoroca@gmail.com','Inactivo'),(2,8,'Sofia','Reynaga','sofi@gmail.com','Inactivo'),(3,9,'Percy','Mamani','perciicici@gmail.com','Inactivo'),(4,11,'Eduardo','López','edu@gmail.com','Activo'),(5,13,'Maria','Jose','jose@gmail.com','Activo'),(6,15,'Nicole','Saravia','nikinicole@gmail.com','activo'),(7,16,'Janrek','Araujo','eldeivii@gmail.com','Activo'),(8,17,'Lucas','Strano','bigoton@gmail.com','Inactivo'),(9,19,'Jazmin','Valenzuela','jazz@gmail.com','Activo'),(10,20,'Lionel','Messi','lio@gmail.com','Activo');
 /*!40000 ALTER TABLE `administradores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,7 +67,7 @@ CREATE TABLE `empleados` (
   UNIQUE KEY `uc_documento` (`documento`),
   KEY `fk_usuario_empleado` (`usuario_id`),
   CONSTRAINT `fk_usuario_empleado` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,7 +76,7 @@ CREATE TABLE `empleados` (
 
 LOCK TABLES `empleados` WRITE;
 /*!40000 ALTER TABLE `empleados` DISABLE KEYS */;
-INSERT INTO `empleados` VALUES (1,1,'Rodrigo','Gonzalez','2005-04-21','48192857','fabigonza20@gmail.com','Av. Chiclana 2021'),(2,4,'Diego','Maradona','1960-02-12','29847189','diego10@gmail.com','Av. Libertad 291'),(3,5,'Julián','Álvarez','1996-11-21','41827948','juli@outlook.com','Av. Mundial 2022');
+INSERT INTO `empleados` VALUES (1,1,'Rodrigo','Gonzalez','2005-04-21','48192857','fabigonza20@gmail.com','Av. Chiclana 2021'),(2,4,'Diego','Maradona','1960-02-12','29847189','diego10@gmail.com','Av. Libertad 291'),(3,5,'Julián','Álvarez','1996-11-21','41827948','juli@outlook.com','Av. Mundial 2022'),(4,10,'Bob','Esponja','2001-09-11','12382983','bobi@outlook.com','Av. Chiclana 612982'),(5,18,'Ivo','Zatoni','1960-10-11','41827958','ivozatoni@gmail.com','Zavaleta 204'),(6,21,'Franco','Perez','1962-10-11','41827952','frankito@gmail.com','Zavaleta 202');
 /*!40000 ALTER TABLE `empleados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +98,7 @@ CREATE TABLE `legajos` (
   PRIMARY KEY (`id_legajo`),
   KEY `fk_empleado` (`empleado_id`),
   CONSTRAINT `fk_empleado` FOREIGN KEY (`empleado_id`) REFERENCES `empleados` (`id_empleado`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +107,7 @@ CREATE TABLE `legajos` (
 
 LOCK TABLES `legajos` WRITE;
 /*!40000 ALTER TABLE `legajos` DISABLE KEYS */;
-INSERT INTO `legajos` VALUES (1,1,'2023-09-21',0,'Producción','Armar notebooks','Inactivo'),(2,2,'2010-12-21',13,'Servicio Técnico','Sysadmin','Activo'),(3,3,'2017-02-12',6,'Servicio Técnico','Testing','Activo');
+INSERT INTO `legajos` VALUES (1,1,'2023-09-21',0,'Producción','Armar notebooks','Inactivo'),(2,2,'2010-12-21',13,'Servicio Técnico','Sysadmin','Inactivo'),(3,3,'2017-02-12',6,'Servicio Técnico','Testing','Activo'),(4,4,'2012-01-20',11,'Servicio Técnico','Reparador de notebooks','Activo'),(5,5,'2016-08-31',7,'Selección y contratación','Especialista en reclutamiento','activo'),(6,6,'2019-08-31',4,'Selección y contratación','Especialista en reclutamiento','activo');
 /*!40000 ALTER TABLE `legajos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,7 +125,7 @@ CREATE TABLE `usuarios` (
   `estado` varchar(20) NOT NULL DEFAULT 'Activo',
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `uc_usuario` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,7 +134,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'fabigonza','fabigonza','Inactivo'),(3,'bruno','bruno','Activo'),(4,'diego10','diego10','Activo'),(5,'julianAlv','julianAlv','Activo'),(6,'eldeivi','eldeivi','Activo'),(8,'sofia123','sofia123','Activo');
+INSERT INTO `usuarios` VALUES (1,'fabigonza','fabigonza','Inactivo'),(3,'bruno','bruno','Inactivo'),(4,'diego10','diego10','Inactivo'),(5,'julianAlv','julianAlv','Activo'),(6,'eldeivi','eldeivi','Activo'),(8,'sofia123','sofia123','Inactivo'),(9,'percy','percy','Inactivo'),(10,'elbobi123','elbobi123','Activo'),(11,'edu123','edu123','Activo'),(13,'jose123','jose123','Activo'),(15,'nicole123','nicole123','activo'),(16,'deivi123','deivi123','Activo'),(17,'lucas123','lucas123','Inactivo'),(18,'ivo','ivo','activo'),(19,'jaz123','jaz123','Activo'),(20,'lio123','lio123','Activo'),(21,'franco','franco','activo');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,7 +161,7 @@ CREATE TABLE `vacaciones` (
   CONSTRAINT `fk_administrador` FOREIGN KEY (`administrador_id`) REFERENCES `administradores` (`id_administrador`),
   CONSTRAINT `fk_legajo` FOREIGN KEY (`legajo_id`) REFERENCES `legajos` (`id_legajo`),
   CONSTRAINT `chk_diasTomados` CHECK (((`diasTomados` >= 1) and (`diasTomados` <= 28)))
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +170,7 @@ CREATE TABLE `vacaciones` (
 
 LOCK TABLES `vacaciones` WRITE;
 /*!40000 ALTER TABLE `vacaciones` DISABLE KEYS */;
-INSERT INTO `vacaciones` VALUES (3,3,1,10,'2023-08-10','2023-08-19','2023-10-08 14:42:15','Rechazado','Problemas familiares'),(4,2,1,21,'2023-11-01','2023-11-21','2023-10-08 14:56:45','Pendiente','Vacaciones de fin de año');
+INSERT INTO `vacaciones` VALUES (1,1,1,4,'2023-10-16','2023-10-19','2023-10-16 17:28:59','Pendiente','vacacione sfamiliares'),(2,3,5,3,'2023-10-16','2023-10-18','2023-10-16 17:42:23','aceptado','reposo medico');
 /*!40000 ALTER TABLE `vacaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,12 +275,26 @@ BEGIN
     DECLARE v_diasTomados INT;
     SET v_diasTomados = DATEDIFF(p_fechaFin, p_fechaInicio) + 1;
 
-    INSERT INTO vacaciones (legajo_id, administrador_id, diasTomados, fechaInicio, fechaFin, comentarios, estado)
-    VALUES (p_legajo_id, p_administrador_id, v_diasTomados, p_fechaInicio, p_fechaFin, p_comentarios, 'Pendiente');
+    IF p_fechaInicio >= CURDATE() THEN
+        IF EXISTS (
+            SELECT 1
+            FROM vacaciones
+            WHERE legajo_id = p_legajo_id
+            AND YEAR(p_fechaInicio) = YEAR(CURDATE())
+            AND MONTH(p_fechaInicio) = MONTH(CURDATE())
+        ) THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Ya has realizado una solicitud de vacaciones en este mes';
+        ELSE
+            INSERT INTO vacaciones (legajo_id, administrador_id, diasTomados, fechaInicio, fechaFin, comentarios, estado)
+            VALUES (p_legajo_id, p_administrador_id, v_diasTomados, p_fechaInicio, p_fechaFin, p_comentarios, 'Pendiente');
 
-    UPDATE vacaciones
-    SET diasTomados = v_diasTomados
-    WHERE id_vacacion = LAST_INSERT_ID();
+            UPDATE vacaciones
+            SET diasTomados = v_diasTomados
+            WHERE id_vacacion = LAST_INSERT_ID();
+        END IF;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha de inicio no puede ser anterior a la fecha actual';
+    END IF;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -303,13 +319,16 @@ BEGIN
 
     SELECT usuario_id INTO v_usuario_id FROM administradores WHERE id_administrador = p_id_administrador;
     
-    UPDATE administradores
-    SET estado = 'Inactivo'
-    WHERE id_administrador = p_id_administrador;
-
-    UPDATE usuarios
-    SET estado = 'Inactivo'
-    WHERE id_usuario = v_usuario_id;
+	IF v_usuario_id IS NOT NULL THEN
+		UPDATE administradores
+        SET estado = 'Inactivo'
+        WHERE id_administrador = p_id_administrador;
+        UPDATE usuarios
+        SET estado = 'Inactivo'
+        WHERE id_usuario = v_usuario_id;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El ID ingresado no pertenece a ningun administrador';
+    END IF;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -330,13 +349,18 @@ CREATE DEFINER=`administrador`@`localhost` PROCEDURE `usp_BajaEmpleado`(
     IN p_id_empleado INT
 )
 BEGIN
-    DECLARE v_legajo_id INT;
+	DECLARE v_legajo_id INT;
     DECLARE v_usuario_id INT;
-
+    
     SELECT id_legajo INTO v_legajo_id FROM legajos WHERE empleado_id = p_id_empleado;
-    UPDATE legajos SET estado = 'Inactivo' WHERE id_legajo = v_legajo_id;
-    SELECT usuario_id INTO v_usuario_id FROM empleados WHERE id_empleado = p_id_empleado;
-    UPDATE usuarios SET estado = 'Inactivo' WHERE id_usuario = v_usuario_id;
+
+    IF v_legajo_id IS NOT NULL THEN
+        UPDATE legajos SET estado = 'Inactivo' WHERE id_legajo = v_legajo_id;
+        SELECT usuario_id INTO v_usuario_id FROM empleados WHERE id_empleado = p_id_empleado;
+		UPDATE usuarios SET estado = 'Inactivo' WHERE id_usuario = v_usuario_id;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El ID ingresado no pertenece a ningun empleado';
+    END IF;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -358,7 +382,8 @@ BEGIN
 	select v.id_vacacion, e.nombre, e.apellido, l.antiguedad, v.diasTomados, v.fechaInicio, v.fechaFin, v.fechaSolicitud, v.comentarios, v.estado
     from empleados e
     inner join legajos l on e.id_empleado = l.empleado_id
-    inner join vacaciones v on l.id_legajo = v.legajo_id;
+    inner join vacaciones v on l.id_legajo = v.legajo_id
+    order by v.id_vacacion;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -399,7 +424,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`administrador`@`localhost` PROCEDURE `usp_ConsultarTodosLosEmpleados`()
 BEGIN
-	select e.id_empleado, u.nombre as usuario, e.nombre, e.apellido, e.fechaNacimiento, e.documento, e.correo, e.direccion, e.fechaNacimiento, l.fechaIngreso, l.antiguedad, l.departamento, l.puesto, l.estado
+	select l.id_legajo, u.nombre as usuario, e.nombre, e.apellido, e.fechaNacimiento, e.documento, e.correo, e.direccion, e.fechaNacimiento, l.fechaIngreso, l.antiguedad, l.departamento, l.puesto, l.estado
     from usuarios u
     inner join empleados e on u.id_usuario = e.usuario_id
     inner join legajos l on e.id_empleado = l.empleado_id
@@ -428,18 +453,24 @@ CREATE DEFINER=`administrador`@`localhost` PROCEDURE `usp_ModificarAdministrador
 	IN p_estado VARCHAR(20)
 )
 BEGIN
-    UPDATE administradores
-    SET
-        nombre = IF(LENGTH(p_nombre) > 0, p_nombre, nombre),
-        apellido = IF(LENGTH(p_apellido) > 0, p_apellido, apellido),
-        correo = IF(LENGTH(p_correo) > 0, p_correo, correo),
-        estado = IF(LENGTH(p_estado) > 0, p_estado, estado)
-    WHERE id_administrador = p_id_administrador;
+    DECLARE v_usuario_id INT;
+    SELECT usuario_id INTO v_usuario_id FROM administradores WHERE id_administrador = p_id_administrador;
+    IF v_usuario_id IS NOT NULL THEN
+        UPDATE administradores
+        SET
+            nombre = IF(LENGTH(p_nombre) > 0, p_nombre, nombre),
+            apellido = IF(LENGTH(p_apellido) > 0, p_apellido, apellido),
+            correo = IF(LENGTH(p_correo) > 0, p_correo, correo),
+            estado = IF(LENGTH(p_estado) > 0, p_estado, estado)
+        WHERE id_administrador = p_id_administrador;
 
-    IF(LENGTH(p_estado) > 0) THEN
-        UPDATE usuarios
-        SET estado = p_estado
-        WHERE id_usuario = (SELECT usuario_id FROM administradores WHERE id_administrador = p_id_administrador);
+        IF(LENGTH(p_estado) > 0) THEN
+            UPDATE usuarios
+            SET estado = p_estado
+            WHERE id_usuario = v_usuario_id;
+        END IF;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El ID ingresado no pertenece a ningun administrador';
     END IF;
 END ;;
 DELIMITER ;
@@ -469,29 +500,35 @@ CREATE DEFINER=`administrador`@`localhost` PROCEDURE `usp_ModificarEmpleado`(
 	IN p_estado VARCHAR(20)
 )
 BEGIN
-    UPDATE empleados
-    SET
-        nombre = IF(LENGTH(p_nombre) > 0, p_nombre, nombre),
-        apellido = IF(LENGTH(p_apellido) > 0, p_apellido, apellido),
-        documento = IF(LENGTH(p_documento) > 0, p_documento, documento),
-        correo = IF(LENGTH(p_correo) > 0, p_correo, correo),
-        direccion = IF(LENGTH(p_direccion) > 0, p_direccion, direccion)
-    WHERE id_empleado = p_id_empleado;
-
-    UPDATE legajos
-    SET
-        departamento = IF(LENGTH(p_departamento) > 0, p_departamento, departamento),
-        puesto = IF(LENGTH(p_puesto) > 0, p_puesto, puesto)
-    WHERE empleado_id = p_id_empleado;
+    DECLARE v_usuario_id INT;
     
-    IF(LENGTH(p_estado) > 0) THEN
-        UPDATE usuarios
-        SET estado = p_estado
-        WHERE id_usuario = (SELECT usuario_id FROM empleados WHERE id_empleado = p_id_empleado);
-
+    SELECT usuario_id INTO v_usuario_id FROM empleados WHERE id_empleado = p_id_empleado;
+    
+    IF v_usuario_id IS NOT NULL THEN
+        UPDATE empleados
+        SET
+            nombre = IF(LENGTH(p_nombre) > 0, p_nombre, nombre),
+            apellido = IF(LENGTH(p_apellido) > 0, p_apellido, apellido),
+            documento = IF(LENGTH(p_documento) > 0, p_documento, documento),
+            correo = IF(LENGTH(p_correo) > 0, p_correo, correo),
+            direccion = IF(LENGTH(p_direccion) > 0, p_direccion, direccion)
+        WHERE id_empleado = p_id_empleado;
         UPDATE legajos
-        SET estado = p_estado
+        SET
+            departamento = IF(LENGTH(p_departamento) > 0, p_departamento, departamento),
+            puesto = IF(LENGTH(p_puesto) > 0, p_puesto, puesto)
         WHERE empleado_id = p_id_empleado;
+        
+        IF(LENGTH(p_estado) > 0) THEN
+            UPDATE usuarios
+            SET estado = p_estado
+            WHERE id_usuario = v_usuario_id;
+            UPDATE legajos
+            SET estado = p_estado
+            WHERE empleado_id = p_id_empleado;
+        END IF;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El ID ingresado no pertenece a ningun empleado';
     END IF;
 END ;;
 DELIMITER ;
@@ -514,11 +551,20 @@ CREATE DEFINER=`administrador`@`localhost` PROCEDURE `usp_ModificarVacacion`(
 	IN p_estado VARCHAR(20)
 )
 BEGIN
-    IF (p_estado = 'Aceptado' OR p_estado = 'Rechazado') THEN
-        UPDATE vacaciones
-        SET estado = p_estado
-        WHERE id_vacacion = p_id_vacacion;
-    END IF;
+	DECLARE v_vacacion_id INT;
+    
+	SELECT id_vacacion INTO v_vacacion_id FROM vacaciones WHERE id_vacacion = p_id_vacacion;
+
+	IF v_vacacion_id IS NOT NULL THEN
+		SET p_estado = LOWER(p_estado);
+		IF (p_estado = 'aceptado' OR p_estado = 'rechazado') THEN
+			UPDATE vacaciones
+			SET estado = p_estado
+			WHERE id_vacacion = p_id_vacacion;
+		END IF;
+	ELSE
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El ID ingresado no pertenece a ninguna vacacion';
+	END IF;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -535,4 +581,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-08 15:20:30
+-- Dump completed on 2023-10-16 18:07:37
