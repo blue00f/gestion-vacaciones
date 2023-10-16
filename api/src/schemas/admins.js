@@ -1,8 +1,8 @@
 import z from 'zod'
 
 const adminSchema = z.object({
-  nombre: z.string().min(4).max(50),
-  apellido: z.string().min(4).max(50),
+  nombre: z.string().min(2).max(50),
+  apellido: z.string().min(2).max(50),
   correo: z.string(),
   usuario: z.string().min(2).max(50),
   clave: z.string().min(1),

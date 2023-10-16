@@ -1,10 +1,10 @@
 import { Router } from 'express'
 import { EmployeeController } from '../controllers/employees.js'
 
-export const createEmployeeRouter = ({ vacationModel }) => {
+export const createEmployeeRouter = ({ employeeModel }) => {
   const employeeRouter = Router()
 
-  const employeeController = new EmployeeController({ vacationModel })
+  const employeeController = new EmployeeController({ employeeModel })
 
   employeeRouter.get('/', employeeController.getAllEmployee)
   employeeRouter.post('/', employeeController.createEmployee)

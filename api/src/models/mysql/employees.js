@@ -15,86 +15,85 @@ const connection = await mysql.createConnection(connectionString)
 export class EmployeeModel {
   static async getAllEmployee({}) {
     const [employees] = await connection.query(
-      `CALL usp_ConsultarTodosLosEmpleados();`,
+      'CALL usp_ConsultarTodosLosEmpleados();',
     )
 
-    return employees
-  }
-
-  static async deleteEmployeeById({ id }) {
-    await connection.query(`CALL usp_BajaEmpleado(?);`, [id])
-
-    return 'Empleado desabilitado'
+    return employees[0]
   }
 
   static async createEmployee({ input }) {
     const {
-      id_empleado,
-      usuario_id,
       nombre,
       apellido,
       fechaNacimiento,
       documento,
       correo,
       direccion,
-      estado,
+      fechaIngreso,
+      departamento,
+      puesto,
+      usuario,
+      clave,
     } = input
 
-    const [uuidResult] = await connection.query('SELECT UUID() uuid;')
-    const [{ uuid }] = uuidResult
-
     try {
-      await connection.query(
-        `CALL usp_AltaEmpleado( UUID_TO_BIN("${uuid}") ,?,?,?,?,?,?,?,?,?,?);`,
-        [
-          id_empleado,
-          usuario_id,
-          nombre,
-          apellido,
-          fechaNacimiento,
-          documento,
-          correo,
-          direccion,
-          estado,
-        ],
-      )
-    } catch (e) {
-      throw new Error('Error creating employee.')
-    }
-
-    const [employees] = await connection.query(
-      `CALL usp_ConsultarTodosLosEmpleados();`,
-    )
-
-    return employees
-  }
-
-  static async updateEmployee({
-    id,
-    nombre,
-    apellido,
-    documento,
-    correo,
-    direccion,
-    departamento,
-    puesto,
-    estado,
-  }) {
-    const [employees] = await connection.query(
-      `CALL usp_ModificarEmpleado(?,?,?,?,?,?,?,?,?);`,
-      [
-        id,
+      await connection.query('CALL usp_AltaEmpleado(?,?,?,?,?,?,?,?,?,?,?);', [
         nombre,
         apellido,
+        fechaNacimiento,
         documento,
         correo,
         direccion,
+        fechaIngreso,
         departamento,
         puesto,
-        estado,
-      ],
-    )
+        usuario,
+        clave,
+      ])
+      return 'Empleado creado'
+    } catch (e) {
+      throw new Error('Error al crear un empleado.')
+    }
+  }
 
-    return employees
+  static async updateEmployeeById({ id, input }) {
+    const {
+      nombre,
+      apellido,
+      documento,
+      correo,
+      direccion,
+      departamento,
+      puesto,
+      estado,
+    } = input
+    try {
+      const [employees] = await connection.query(
+        'CALL usp_ModificarEmpleado(?,?,?,?,?,?,?,?,?);',
+        [
+          id,
+          nombre,
+          apellido,
+          documento,
+          correo,
+          direccion,
+          departamento,
+          puesto,
+          estado,
+        ],
+      )
+      return 'Empleado modificado'
+    } catch (e) {
+      throw new Error('Error al modificar empleado')
+    }
+  }
+
+  static async deleteEmployeeById({ id }) {
+    try {
+      await connection.query('CALL usp_BajaEmpleado(?);', [id])
+      return 'Empleado desabilitado'
+    } catch (e) {
+      throw new Error('Empleado no encontrado')
+    }
   }
 }
