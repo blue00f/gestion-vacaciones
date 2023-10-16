@@ -23,7 +23,7 @@ export class VacationModel {
   static async createVacation({ input }) {
     const { fechaInicio, fechaFin, comentarios, legajo_id, administrador_id } =
       input
-
+    
     try {
       await connection.query(`CALL usp_AltaVacacion (?, ?, ?, ?, ?);`, [
         fechaInicio,
@@ -33,14 +33,10 @@ export class VacationModel {
         administrador_id,
       ])
     } catch (e) {
-      throw new Error('Error creating vacation')
+      throw new Error(e)
     }
 
-    const [vacations] = await connection.query(
-      `CALL usp_ConsultarTodasLasVacaciones();`,
-    )
-
-    return vacations
+    
   }
 
   static async updateVacation({ id, estado }) {
