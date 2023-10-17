@@ -1,11 +1,19 @@
 import z from 'zod'
 
 const adminSchema = z.object({
-  usuario: z.string().min(10).max(50),
-  clave: z.record(z.string().min(1)),
-  nombre: z.string().min(4).max(50),
-  apellido: z.string().min(4).max(50),
-  correo: z.string().email().max(50),
+  nombre: z.string().min(2).max(50),
+  apellido: z.string().min(2).max(50),
+  correo: z.string(),
+  usuario: z.string().min(2).max(50),
+  clave: z.string().min(1),
+  estado: z
+    .custom((value) => {
+      const lowerCaseValue = value.toLowerCase()
+      if (lowerCaseValue === 'activo' || lowerCaseValue === 'inactivo') {
+        return lowerCaseValue
+      }
+    })
+    .default('Activo'),
 })
 
 export function validateAdmin(input) {

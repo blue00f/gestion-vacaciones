@@ -1,52 +1,57 @@
 import { validateAdmin, validatePartialAdmin } from '../schemas/admins.js'
 
 export class AdminController {
-  constructor({ administratorModel }) {
-    this.administratorModel = administratorModel
+  constructor({ adminModel }) {
+    this.adminModel = adminModel
   }
 
   getAllAdmin = async (req, res) => {
-    const resAdmin = await this.administratorModel.getAllAdmin()
+    const resAdmin = await this.adminModel.getAllAdmin({})
     res.json(resAdmin)
   }
 
   createAdmin = async (req, res) => {
     const result = validateAdmin(req.body)
 
-    if (!result.success) {
-      return res.status(400).json({ error: JSON.parse(result.error.message) })
-    }
-
-    const newAdmins = await this.administratorModel.createAdmin({
+    await this.adminModel.createAdmin({
       input: result.data,
     })
-
-    res.status(201).json(newAdmins)
-  }
-
-  deleteAdminById = async (req, res) => {
-    const { id } = req.params
-    const resAdmin = await this.administratorModel.deleteAdminById({
-      id,
-    })
-    if (resAdmin) return res.json(resAdmin)
-    res.status(404).json({ message: 'Administrator not found' })
+    res.status(201).json({ message: 'Administrador creado' })
   }
 
   updateAdminById = async (req, res) => {
     const result = validatePartialAdmin(req.body)
-
-    if (!result.success) {
-      return res.status(400).json({ error: JSON.parse(result.error.message) })
-    }
-
     const { id } = req.params
 
-    const updatedVacation = await this.administratorModel.updateAdminById({
-      id,
-      input: result.data,
-    })
+    try {
+      await this.adminModel.updateAdminById({
+        id,
+        input: result.data,
+      })
+      return res.status(200).json({ message: 'Administrador actualizado' })
+    } catch (e) {
+      if (e.message === 'Error al modificar administrador') {
+        res.status(404).json({ message: 'Error al modificar administrador' })
+      } else {
+        res.status(500).json({ message: 'Error interno del servidor' })
+      }
+    }
+  }
 
-    return res.json(updatedVacation)
+  deleteAdminById = async (req, res) => {
+    const { id } = req.params
+
+    try {
+      await this.adminModel.deleteAdminById({
+        id,
+      })
+      return res.status(200).json({ message: 'Administrador deshabilitado' })
+    } catch (e) {
+      if (e.message === 'Administrador no encontrado') {
+        res.status(404).json({ message: 'Administrador no encontrado' })
+      } else {
+        res.status(500).json({ message: 'Error interno del servidor' })
+      }
+    }
   }
 }

@@ -8,7 +8,7 @@ export const createVacationRouter = ({ vacationModel }) => {
 
   vacationsRouter.get('/', vacationController.getAllVacation)
   vacationsRouter.post('/', vacationController.createVacation)
-  vacationsRouter.patch('/:id', vacationController.updateVacation)
+  vacationsRouter.patch('/:id', vacationController.updateVacationById)
 
   return vacationsRouter
 }

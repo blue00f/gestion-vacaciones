@@ -9,41 +9,47 @@ export class VacationController {
   }
 
   getAllVacation = async (req, res) => {
-    const { vacations } = req.query
-    const resVacation = await this.vacationModel.getAllVacation({vacations})
+    const resVacation = await this.vacationModel.getAllVacation({})
     res.json(resVacation)
   }
 
   createVacation = async (req, res) => {
-    const input = req.body;
-    input.fechaInicio = new Date(input.fechaInicio);
-    input.fechaFin = new Date(input.fechaFin);
-  
-    const result = validateVacation(input);
-  
-    if (!result.success) {
-      return res.status(400).json({ error: JSON.parse(result.error.message) });
+    const input = req.body
+    input.fechaInicio = new Date(input.fechaInicio)
+    input.fechaFin = new Date(input.fechaFin)
+
+    try {
+      const result = validateVacation(input)
+
+      await this.vacationModel.createVacation({
+        input: result.data,
+      })
+      return res.status(201).json({ message: 'Vacaciones creadas' })
+    } catch (e) {
+      if (e.message === 'Error al crear las vacaciones') {
+        res.status(404).json({ message: 'Error al crear vacaciones' })
+      } else {
+        res.status(500).json({ message: 'Error interno del servidor' })
+      }
     }
-  
-    const newVacations = await this.vacationModel.createVacation({
-      input: result.data,
-    });
-  
-    res.status(201).json(newVacations);
   }
 
-  updateVacation = async (req, res) => {
+  updateVacationById = async (req, res) => {
     const result = validatePartialVacation(req.body)
-
-    if (!result.success) {
-      return res.status(400).json({ error: JSON.parse(result.error.message) })
-    }
-
     const { id } = req.params
-    const { estado } = req.params
 
-    const updatedVacation = await this.vacation.updateVacation({ id, estado })
-
-    return res.json(updatedVacation)
+    try {
+      await this.vacationModel.updateVacationById({
+        id,
+        input: result.data,
+      })
+      return res.status(200).json({ message: 'Vacaciones actualizadas' })
+    } catch (e) {
+      if (e.message === e) {
+        res.status(404).json({ message: 'Error al modificar vacaciones' })
+      } else {
+        res.status(500).json({ message: 'Error interno del servidor' })
+      }
+    }
   }
 }

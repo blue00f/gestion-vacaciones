@@ -15,17 +15,16 @@ const connection = await mysql.createConnection(connectionString)
 export class VacationModel {
   static async getAllVacation({}) {
     const [vacations] = await connection.query(
-      `CALL usp_ConsultarTodasLasVacaciones()`,
+      'CALL usp_ConsultarTodasLasVacaciones()',
     )
-    return vacations
+    return vacations[0]
   }
 
   static async createVacation({ input }) {
     const { fechaInicio, fechaFin, comentarios, legajo_id, administrador_id } =
       input
-    
     try {
-      await connection.query(`CALL usp_AltaVacacion (?, ?, ?, ?, ?);`, [
+      await connection.query('CALL usp_AltaVacacion (?,?,?,?,?);', [
         fechaInicio,
         fechaFin,
         comentarios,
@@ -33,18 +32,19 @@ export class VacationModel {
         administrador_id,
       ])
     } catch (e) {
-      throw new Error(e)
+      throw new Error('Error al crear las vacaciones')
     }
-
-    
   }
 
-  static async updateVacation({ id, estado }) {
-    const [vacations] = await connection.query(
-      `CALL usp_ModificarVacacion(?, ?);`,
-      [id, estado],
-    )
-
-    return vacations
+  static async updateVacationById({ id, input }) {
+    const { estado } = input
+    try {
+      const [vacations] = await connection.query(
+        'CALL usp_ModificarVacacion(?,?);',
+        [id, estado],
+      )
+    } catch (e) {
+      throw new Error('Error al modificar vacaciones')
+    }
   }
 }
