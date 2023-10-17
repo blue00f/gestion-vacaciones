@@ -1,4 +1,6 @@
+ 
 function FormEmployee() {
+ 
   return (
     <div className="flex items-center justify-center">
       <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
@@ -9,7 +11,7 @@ function FormEmployee() {
                 Ingresar empleado
               </h1>
               <p className="text-normal text-lg sm:text-2xl font-medium text-gray-400 mt-2">
-                Fill in the form to start a conversation
+                Rellene el formulario para empezar la comunicación
               </p>
 
               <div className="flex items-center mt-4 text-gray-400">
@@ -64,7 +66,7 @@ function FormEmployee() {
                   type="name"
                   name="name"
                   id="name"
-                  placeholder="Full Name"
+                  placeholder="Nombre completo"
                   className="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800  iAfont-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
@@ -84,13 +86,13 @@ function FormEmployee() {
 
               <div className="flex flex-col mt-2">
                 <label for="tel" className="hidden">
-                  Number
+                  Telefono
                 </label>
                 <input
                   type="tel"
                   name="tel"
                   id="tel"
-                  placeholder="Telephone Number"
+                  placeholder="Numero Teléfono"
                   className="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
@@ -98,7 +100,7 @@ function FormEmployee() {
               <button
                 type="submit"
                 className="md:w-32 bg-indigo-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover:bg-indigo-500 transition ease-in-out duration-300">
-                Submit
+                Enviar
               </button>
             </form>
           </div>

@@ -1,7 +1,8 @@
 function Calendar() {
   return (
     <div className="w-96 mx-auto mt-10">
-      <div date-rangepicker className="flex items-center">
+      <div date-rangepicker className="flex items-center ">
+      <span className="mr-4 text-white">De</span>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none"></div>
           <input
@@ -11,7 +12,7 @@ function Calendar() {
             placeholder="Select date start"
           />
         </div>
-        <span className="mx-4 text-white">to</span>
+        <span className="mx-4 text-white">Hasta</span>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center   pointer-events-none"></div>
           <input
