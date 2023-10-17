@@ -9,7 +9,7 @@ POST http://localhost:1234/admins
 Content-Type: application/json
 
 {
-  "nombre": "Lionel",
+  "nombre": "Andres",
   "apellido": "Messi",
   "correo": "lio@gmail.com",
   "usuario": "lio123",
