@@ -19,12 +19,12 @@ function Header() {
             <Link
               to="/login"
               className="text-white focus:ring-4 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 hover:bg-gray-700 focus:outline-none focus:ring-gray-800">
-              Log in
+              Iniciar Sesión
             </Link>
             <Link
-              to="/"
+              to="/register"
               className="text-white focus:ring-4 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 hover:bg-gray-700 focus:outline-none focus:ring-gray-800">
-              Register
+              Registrarse
             </Link>
             <button
               data-collapse-toggle="mobile-menu-2"
@@ -32,7 +32,7 @@ function Header() {
               className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               aria-controls="mobile-menu-2"
               aria-expanded="false">
-              <span className="sr-only">Open main menu</span>
+              <span className="sr-only">Abrir menú</span>
               <svg
                 className="w-6 h-6"
                 fill="currentColor"
@@ -64,7 +64,7 @@ function Header() {
                 <Link
                   to="dashboard"
                   className="block py-2 pr-4 pl-3 border-b lg:border-0 lg:hover:text-primary-700 lg:p-0 text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700">
-                  Dashboard
+                  Vacaciones
                 </Link>
               </li>
               <li>
