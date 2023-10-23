@@ -9,7 +9,7 @@ function Dashboard() {
   useEffect(() => {
     axios.get('http://localhost:1234/vacations')
       .then((response) => {
-        setVacaciones(response.data[0]); // Usamos response.data[0] para obtener la lista de vacaciones
+        setVacaciones(response.data);  
       })
       .catch((error) => {
         console.error('Error al obtener las vacaciones: ', error);
@@ -57,6 +57,11 @@ function Dashboard() {
             ))}
           </tbody>
         </table>
+        <button
+            className="bg-gray-500 mt-5 hover:bg-gray-600 text-white font-bold w-full py-3"
+            type="submit">
+             Modificar
+          </button>
       </div>
     </div>
   );

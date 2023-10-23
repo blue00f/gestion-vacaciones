@@ -1,6 +1,60 @@
- 
+import React, { useState } from 'react';
+import axios from 'axios';
+
 function FormEmployee() {
- 
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [document, setDocument] = useState('');
+  const [address, setAddress] = useState('');
+  const [admissionDate, setAdmissionDate] = useState('');
+  const [department, setDepartment] = useState('');
+  const [position, setPosition] = useState('');
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Evitar la presentación del formulario
+
+    setIsLoading(true);
+    setMessage('');
+
+    try {
+      const requestData = {
+        nombre: name,
+        apellido: lastName,
+        email: email,
+        fechaNacimiento: birthDate,
+        documento: document,
+        direccion: address,
+        fechaIngreso: admissionDate,
+        departamento: department,
+        puesto: position,
+        usuario: user,
+        clave: password,
+      };
+
+      const response = await axios({
+        method: 'post',
+        url: 'http://localhost:1234/employees',
+        data: requestData,
+      });
+
+      if (response.status === 201) {
+        setMessage('Empleado enviado correctamente');
+      } else {
+        setMessage('Error al enviar los datos');
+      }
+    } catch (error) {
+      setMessage('Error en la solicitud: ' + error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="flex items-center justify-center">
       <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
@@ -8,12 +62,13 @@ function FormEmployee() {
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="p-6 mr-2 bg-gray-800 sm:rounded-lg">
               <h1 className="text-4xl text-gray-400 dark:text-white font-extrabold tracking-tight">
-                Ingresar empleado
+                Enter Employee
               </h1>
               <p className="text-normal text-lg sm:text-2xl font-medium text-gray-400 mt-2">
-                Rellene el formulario para empezar la comunicación
+                Fill out the form to start communication
               </p>
 
+              
               <div className="flex items-center mt-4 text-gray-400">
                 <svg
                   fill="none"
@@ -22,7 +77,8 @@ function FormEmployee() {
                   strokeLinejoin="round"
                   strokeWidth="1.5"
                   viewBox="0 0 24 24"
-                  className="w-8 h-8 text-gray-800">
+                  className="w-8 h-8 text-gray-800"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -43,7 +99,8 @@ function FormEmployee() {
                   strokeLinejoin="round"
                   strokeWidth="1.5"
                   viewBox="0 0 24 24"
-                  className="w-8 h-8 text-gray-500">
+                  className="w-8 h-8 text-gray-500"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -57,57 +114,189 @@ function FormEmployee() {
               </div>
             </div>
 
-            <form className="p-6 flex flex-col justify-center">
+            <form className="p-6 flex flex-col justify-center" onSubmit={handleSubmit}>
+             
               <div className="flex flex-col">
-                <label for="name" className="hidden">
+                <label htmlFor="name" className="hidden">
                   Nombre
                 </label>
                 <input
-                  type="name"
+                  type="text"
                   name="name"
                   id="name"
-                  placeholder="Nombre completo"
-                  className="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800  iAfont-semibold focus:border-indigo-500 focus:outline-none"
+                  value={name}
+                  placeholder="Nombre"
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label htmlFor="lastName" className="hidden">
+                  Apellido
+                </label>
+                <input
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  value={lastName}
+                  placeholder="Apellido"
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
 
               <div className="flex flex-col mt-2">
-                <label for="email" className="hidden">
-                  Apellido
+                <label htmlFor="birthDate" className="hidden">
+                  Fecha de Nacimiento
+                </label>
+                <input
+                  type="date"
+                  name="birthDate"
+                  id="birthDate"
+                  value={birthDate}
+                  placeholder="Fecha de Nacimiento"
+                  onChange={(e) => setBirthDate(e.target.value)}
+                  className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
+                />
+              </div>
+
+              <div className="flex flex-col mt-2">
+                <label htmlFor="document" className="hidden">
+                  Email
+                </label>
+                <input
+                  type="text"
+                  name="document"
+                  id="document"
+                  value={document}
+                  placeholder="Documento"
+                  onChange={(e) => setDocument(e.target.value)}
+                  className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
+                />
+              </div>
+
+              <div className="flex flex-col mt-2">
+                <label htmlFor="email" className="hidden">
+                  Email
                 </label>
                 <input
                   type="email"
                   name="email"
                   id="email"
+                  value={email}
                   placeholder="Email"
-                  className="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
 
               <div className="flex flex-col mt-2">
-                <label for="tel" className="hidden">
-                  Telefono
+                <label htmlFor="address" className="hidden">
+                  Direccion
                 </label>
                 <input
-                  type="tel"
-                  name="tel"
-                  id="tel"
-                  placeholder="Numero Teléfono"
-                  className="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
+                  type="text"
+                  name="address"
+                  id="address"
+                  value={address}
+                  placeholder="Dirección"
+                  onChange={(e) => setAddress(e.target.value)}
+                  className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
+                />
+              </div>
+
+              <div className="flex flex-col mt-2">
+                <label htmlFor="admissionDate" className="hidden">
+                  Fecha de Ingreso
+                </label>
+                <input
+                  type="date"
+                  name="admissionDate"
+                  id="admissionDate"
+                  value={admissionDate}
+                  placeholder="Fecha de Ingreso"
+                  onChange={(e) => setAdmissionDate(e.target.value)}
+                  className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
+                />
+              </div>
+
+              <div className="flex flex-col mt-2">
+                <label htmlFor="department" className="hidden">
+                  Departamento
+                </label>
+                <input
+                  type="text"
+                  name="department"
+                  id="department"
+                  value={department}
+                  placeholder="Departamento"
+                  onChange={(e) => setDepartment(e.target.value)}
+                  className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
+                />
+              </div>
+
+              <div className="flex flex-col mt-2">
+                <label htmlFor="position" className="hidden">
+                  Puesto
+                </label>
+                <input
+                  type="text"
+                  name="position"
+                  id="position"
+                  value={position}
+                  placeholder="Puesto"
+                  onChange={(e) => setPosition(e.target.value)}
+                  className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
+                />
+              </div>
+
+              <div className="flex flex-col mt-2">
+                <label htmlFor="user" className="hidden">
+                  Usuario
+                </label>
+                <input
+                  type="text"
+                  name="user"
+                  id="user"
+                  value={user}
+                  placeholder="Usuario"
+                  onChange={(e) => setUser(e.target.value)}
+                  className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
+                />
+              </div>
+
+              <div className="flex flex-col mt-2">
+                <label htmlFor="password" className="hidden">
+                  Contraseña
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  value={password}
+                  placeholder="********"
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
 
               <button
                 type="submit"
-                className="md:w-32 bg-indigo-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover:bg-indigo-500 transition ease-in-out duration-300">
-                Enviar
+                className="md:w-32 bg-indigo-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover-bg-indigo-500 transition ease-in-out duration-300"
+              >
+                Submit
               </button>
             </form>
+          </div>
+          <div className="text-white">
+            {isLoading && <p>Cargando...</p>}
+            {message && <p>{message}</p>}
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default FormEmployee
+export default FormEmployee;

@@ -5,6 +5,7 @@ function Register() {
   const [ user, setUser] = useState('');
   const [ password, setPassword] = useState('');
   const [ email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleUserChange = (e) => {
     setUser(e.target.value);
@@ -24,9 +25,9 @@ function Register() {
 
     try {
       const response = await axios.post('http://localhost:1234/register', {
-        Usuario: User,
-        Email: Email,
-        Contraseña: Password,
+        Usuario: user,
+        Email: email,
+        Contraseña: password,
       });
 
       if (response.status === 200) {
@@ -58,6 +59,7 @@ function Register() {
               className="border-solid border border-gray-400 rounded px-2 py-3"
               type="text"
               id="userEmail"
+              onChange={handleUserChange}
               placeholder="Nombre de usuario"
               required
             />
@@ -70,6 +72,7 @@ function Register() {
               className="border-solid border border-gray-400 rounded px-2 py-3"
               type="email"
               id="userEmail"
+              onChange={handleEmailChange}
               placeholder="Email"
               required
             />
@@ -82,6 +85,7 @@ function Register() {
               className="border-solid border border-gray-400 rounded px-2 py-3"
               type="password"
               id="userPass"
+              onChange={handlePasswordChange}
               placeholder="Contraseña"
               required
             />
@@ -94,6 +98,7 @@ function Register() {
               className="border-solid border border-gray-400 rounded px-2 py-3"
               type="password"
               id="userPass"
+              onChange={handlePasswordChange}
               placeholder="Confirmar Contraseña"
               required
             />
@@ -101,7 +106,9 @@ function Register() {
            
           <button
             className="bg-gray-500 hover:bg-gray-600 text-white font-bold w-full py-3"
-            type="submit">
+            type="submit"
+            onClick={handleSubmit}
+          disabled={isLoading}>
             Registrarse
           </button>
         </form>
