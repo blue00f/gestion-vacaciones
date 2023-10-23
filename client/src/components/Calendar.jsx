@@ -120,7 +120,7 @@ function Calendar() {
           type="button"
           onClick={handleSubmit}
           disabled={isLoading}
-          className="bg-gray-500 hover-bg-gray-400 text-white font-bold py-2 px-4 rounded">
+          className="w-full bg-indigo-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover-bg-indigo-500 transition ease-in-out duration-300">
           Enviar
         </button>
       </div>

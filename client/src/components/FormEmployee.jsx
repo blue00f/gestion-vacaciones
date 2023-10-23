@@ -147,9 +147,6 @@ function FormEmployee() {
                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   />
                 </svg>
-                <div className="ml-4 text-md tracking-wide font-semibold w-50 text-gray-400">
-                  solosandro@yahoo.com
-                </div>
               </div>
             </div>
 
@@ -324,7 +321,7 @@ function FormEmployee() {
               <button
                 type="submit"
                 className="md:w-32 bg-indigo-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover-bg-indigo-500 transition ease-in-out duration-300">
-                Submit
+                Enviar
               </button>
             </form>
           </div>
