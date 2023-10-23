@@ -1,39 +1,39 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react"
+import axios from "axios"
 
 function Calendar() {
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [legajoId, setLegajoId] = useState('');
-  const [adminId, setAdminId] = useState('');
-  const [comentarios, setComentarios] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState('');
+  const [startDate, setStartDate] = useState("")
+  const [endDate, setEndDate] = useState("")
+  const [legajoId, setLegajoId] = useState("")
+  const [adminId, setAdminId] = useState("")
+  const [comentarios, setComentarios] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [message, setMessage] = useState("")
 
   const handleStartDateChange = (e) => {
-    setStartDate(e.target.value);
-  };
+    setStartDate(e.target.value)
+  }
 
   const handleEndDateChange = (e) => {
-    setEndDate(e.target.value);
-  };
+    setEndDate(e.target.value)
+  }
 
   const handleLegajoIdChange = (e) => {
-    setLegajoId(e.target.value);
-  };
+    setLegajoId(e.target.value)
+  }
 
   const handleAdminIdChange = (e) => {
-    setAdminId(e.target.value);
-  };
+    setAdminId(e.target.value)
+  }
 
   const handleComentariosChange = (e) => {
-    setComentarios(e.target.value);
-  };
+    setComentarios(e.target.value)
+  }
 
   const handleSubmit = async () => {
-    setIsLoading(true);
-    setMessage('');
-  
+    setIsLoading(true)
+    setMessage("")
+
     try {
       const requestData = {
         fechaInicio: startDate,
@@ -41,27 +41,25 @@ function Calendar() {
         comentarios: comentarios,
         legajo_id: parseInt(legajoId),
         administrador_id: parseInt(adminId),
-      };
-  
+      }
+
       const response = await axios({
-        method: 'post',
-        url: 'http://localhost:1234/vacations',
+        method: "post",
+        url: "http://localhost:1234/vacations",
         data: requestData,
-      });
-  
+      })
+
       if (response.status === 201) {
-        setMessage('Fechas y datos adicionales enviados con éxito');
+        setMessage("Fechas y datos adicionales enviados con éxito")
       } else {
-        setMessage('Error al enviar los datos');
+        setMessage("Error al enviar los datos")
       }
     } catch (error) {
-      setMessage('Error en la solicitud: ' + error.message);
+      setMessage("Error en la solicitud: " + error.message)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
-  
-   
+  }
 
   return (
     <div className="w-96 mx-auto mt-10">
@@ -122,17 +120,16 @@ function Calendar() {
           type="button"
           onClick={handleSubmit}
           disabled={isLoading}
-          className="bg-gray-500 hover-bg-gray-400 text-white font-bold py-2 px-4 rounded"
-        >
+          className="bg-gray-500 hover-bg-gray-400 text-white font-bold py-2 px-4 rounded">
           Enviar
         </button>
       </div>
-      <div className='text-white'> 
-      {isLoading && <p>Cargando...</p>}
-      {message && <p>{message}</p>}
+      <div className="text-white">
+        {isLoading && <p>Cargando...</p>}
+        {message && <p>{message}</p>}
       </div>
     </div>
-  );
+  )
 }
 
-export default Calendar;
+export default Calendar
