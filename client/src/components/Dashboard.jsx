@@ -20,7 +20,6 @@ const [newState, setNewState] = useState(vacacion.estado);
   }, []);
 
   const handleModificarEstado = (vacacion) => {
-    setEditMode(true);
     const nuevoEstado = prompt('Ingrese el nuevo estado (Aceptado, Pendiente o Rechazado):');
     if (nuevoEstado === 'Aceptado' || nuevoEstado === 'Pendiente' || nuevoEstado === 'Rechazado') {
       // Actualizar el estado de la vacación con el nuevo valor.
@@ -29,17 +28,7 @@ const [newState, setNewState] = useState(vacacion.estado);
       alert('Estado no válido. Debe ser Aceptado, Pendiente o Rechazado.');
     }
   }
-
-  const handleGuardarCambios = () => {
-    // Realiza una solicitud al servidor para guardar el nuevo estado en la base de datos.
-    // Puedes utilizar fetch, axios o cualquier otra biblioteca para realizar la solicitud.
-    // Asegúrate de incluir el nuevo estado en la solicitud.
-    
-    // Después de que se complete la solicitud, puedes cambiar el estado editMode nuevamente a falso.
-    setEditMode(false);
-  }
   
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
       <div>
@@ -76,9 +65,7 @@ const [newState, setNewState] = useState(vacacion.estado);
                   >
                     {vacacion.estado}
                   </span>
-                  {editMode ? 
-                  (  <button onClick={handleGuardarCambios}>Guardar Cambios</button>  ) : (
-                      <button onClick={handleModificarEstado}>Modificar</button> )}
+                  <button onClick={() => handleModificarEstado(vacacion)}>Modificar</button>
                 </td>
               </tr>
             ))}

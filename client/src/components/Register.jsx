@@ -3,10 +3,12 @@ import axios from 'axios';
 
 function Register() {
   const [ user, setUser] = useState('');
+  const [ userName, setUserName] = useState('');
+  const [ lastName, setLastName] = useState('');
   const [ password, setPassword] = useState('');
   const [ email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
+  const [message, setMessage] = useState('');
   const handleUserChange = (e) => {
     setUser(e.target.value);
   };
@@ -18,16 +20,28 @@ function Register() {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
+  
+  const handleUserNameChange= (e) => {
+    setUserName(e.target.value);
+  };
+ 
+  const handleLastNameChange= (e) => {
+    setLastName(e.target.value);
+  };
+ 
 
   const handleSubmit = async () => {
     setIsLoading(true);
     setMessage('');
 
     try {
-      const response = await axios.post('http://localhost:1234/register', {
-        Usuario: user,
-        Email: email,
-        Contraseña: password,
+      const response = await axios.post('http://localhost:1234/admins', {
+        nombre: userName,
+        apellido: lastName,
+        correo: email,
+        usuario: user,
+        clave: password,
+       
       });
 
       if (response.status === 200) {
@@ -52,8 +66,34 @@ function Register() {
         />
         <form method="post" className="mt-8 mb-4">
           <div className="mb-4">
-            <label for="userEmail" className="sr-only">
-              Nombre de usuario
+            <label for="userName" className="sr-only">
+              Nombre Completo
+            </label>
+            <input
+              className="border-solid border border-gray-400 rounded px-2 py-3"
+              type="text"
+              id="userEmail"
+              onChange={handleUserNameChange}
+              placeholder="Nombre Completo"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label for="userLastName" className="sr-only">
+              Apellido
+            </label>
+            <input
+              className="border-solid border border-gray-400 rounded px-2 py-3"
+              type="text"
+              id="userEmail"
+              onChange={handleLastNameChange}
+              placeholder="Apellido"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label for="userUser" className="sr-only">
+            Nombre de Usuario
             </label>
             <input
               className="border-solid border border-gray-400 rounded px-2 py-3"
