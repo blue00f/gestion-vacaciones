@@ -5,6 +5,9 @@ import axios from 'axios';
 
 function Dashboard() {
   const [vacaciones, setVacaciones] = useState([]);
+  const [editMode, setEditMode] = useState(false);
+const [newState, setNewState] = useState(vacacion.estado);
+
 
   useEffect(() => {
     axios.get('http://localhost:1234/vacations')
@@ -15,6 +18,27 @@ function Dashboard() {
         console.error('Error al obtener las vacaciones: ', error);
       });
   }, []);
+
+  const handleModificarEstado = (vacacion) => {
+    setEditMode(true);
+    const nuevoEstado = prompt('Ingrese el nuevo estado (Aceptado, Pendiente o Rechazado):');
+    if (nuevoEstado === 'Aceptado' || nuevoEstado === 'Pendiente' || nuevoEstado === 'Rechazado') {
+      // Actualizar el estado de la vacación con el nuevo valor.
+      vacacion.estado = nuevoEstado;
+    } else {
+      alert('Estado no válido. Debe ser Aceptado, Pendiente o Rechazado.');
+    }
+  }
+
+  const handleGuardarCambios = () => {
+    // Realiza una solicitud al servidor para guardar el nuevo estado en la base de datos.
+    // Puedes utilizar fetch, axios o cualquier otra biblioteca para realizar la solicitud.
+    // Asegúrate de incluir el nuevo estado en la solicitud.
+    
+    // Después de que se complete la solicitud, puedes cambiar el estado editMode nuevamente a falso.
+    setEditMode(false);
+  }
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
@@ -52,16 +76,15 @@ function Dashboard() {
                   >
                     {vacacion.estado}
                   </span>
+                  {editMode ? 
+                  (  <button onClick={handleGuardarCambios}>Guardar Cambios</button>  ) : (
+                      <button onClick={handleModificarEstado}>Modificar</button> )}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <button
-            className="bg-gray-500 mt-5 hover:bg-gray-600 text-white font-bold w-full py-3"
-            type="submit">
-             Modificar
-          </button>
+        
       </div>
     </div>
   );
