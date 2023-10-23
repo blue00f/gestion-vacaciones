@@ -1,59 +1,101 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react"
+import axios from "axios"
 
 function FormEmployee() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [birthDate, setBirthDate] = useState('');
-  const [document, setDocument] = useState('');
-  const [address, setAddress] = useState('');
-  const [admissionDate, setAdmissionDate] = useState('');
-  const [department, setDepartment] = useState('');
-  const [position, setPosition] = useState('');
-  const [user, setUser] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState('');
+  const [name, setName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [email, setEmail] = useState("")
+  const [birthDate, setBirthDate] = useState("")
+  const [document, setDocument] = useState("")
+  const [address, setAddress] = useState("")
+  const [admissionDate, setAdmissionDate] = useState("")
+  const [department, setDepartment] = useState("")
+  const [position, setPosition] = useState("")
+  const [user, setUser] = useState("")
+  const [password, setPassword] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [message, setMessage] = useState("")
+
+  const handleNameChange = (e) => {
+    setName(e.target.value)
+  }
+
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value)
+  }
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value)
+  }
+
+  const handleBirthDateChange = (e) => {
+    setBirthDate(e.target.value)
+  }
+
+  const handleDocumentChange = (e) => {
+    setDocument(e.target.value)
+  }
+
+  const handleAddressChange = (e) => {
+    setAddress(e.target.value)
+  }
+
+  const handleAdmissionDateChange = (e) => {
+    setAdmissionDate(e.target.value)
+  }
+
+  const handleDepartmentChange = (e) => {
+    setDepartment(e.target.value)
+  }
+
+  const handlePositionChange = (e) => {
+    setPosition(e.target.value)
+  }
+
+  const handleUserChange = (e) => {
+    setUser(e.target.value)
+  }
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value)
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Evitar la presentación del formulario
-
-    setIsLoading(true);
-    setMessage('');
+    setIsLoading(true)
+    setMessage("")
 
     try {
       const requestData = {
         nombre: name,
         apellido: lastName,
-        email: email,
         fechaNacimiento: birthDate,
         documento: document,
+        correo: email,
         direccion: address,
         fechaIngreso: admissionDate,
         departamento: department,
         puesto: position,
         usuario: user,
         clave: password,
-      };
+      }
 
       const response = await axios({
-        method: 'post',
-        url: 'http://localhost:1234/employees',
+        method: "post",
+        url: "http://localhost:1234/employees",
         data: requestData,
-      });
+      })
 
       if (response.status === 201) {
-        setMessage('Empleado enviado correctamente');
+        setMessage("Empleado enviado correctamente")
       } else {
-        setMessage('Error al enviar los datos');
+        setMessage("Error al enviar los datos")
       }
     } catch (error) {
-      setMessage('Error en la solicitud: ' + error.message);
+      setMessage("Error en la solicitud: " + error.message)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   return (
     <div className="flex items-center justify-center">
@@ -68,7 +110,6 @@ function FormEmployee() {
                 Fill out the form to start communication
               </p>
 
-              
               <div className="flex items-center mt-4 text-gray-400">
                 <svg
                   fill="none"
@@ -77,8 +118,7 @@ function FormEmployee() {
                   strokeLinejoin="round"
                   strokeWidth="1.5"
                   viewBox="0 0 24 24"
-                  className="w-8 h-8 text-gray-800"
-                >
+                  className="w-8 h-8 text-gray-800">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -99,8 +139,7 @@ function FormEmployee() {
                   strokeLinejoin="round"
                   strokeWidth="1.5"
                   viewBox="0 0 24 24"
-                  className="w-8 h-8 text-gray-500"
-                >
+                  className="w-8 h-8 text-gray-500">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -114,8 +153,9 @@ function FormEmployee() {
               </div>
             </div>
 
-            <form className="p-6 flex flex-col justify-center" onSubmit={handleSubmit}>
-             
+            <form
+              className="p-6 flex flex-col justify-center"
+              onSubmit={handleSubmit}>
               <div className="flex flex-col">
                 <label htmlFor="name" className="hidden">
                   Nombre
@@ -126,7 +166,7 @@ function FormEmployee() {
                   id="name"
                   value={name}
                   placeholder="Nombre"
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={handleNameChange}
                   className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
@@ -141,7 +181,7 @@ function FormEmployee() {
                   id="lastName"
                   value={lastName}
                   placeholder="Apellido"
-                  onChange={(e) => setLastName(e.target.value)}
+                  onChange={handleLastNameChange}
                   className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
@@ -156,7 +196,7 @@ function FormEmployee() {
                   id="birthDate"
                   value={birthDate}
                   placeholder="Fecha de Nacimiento"
-                  onChange={(e) => setBirthDate(e.target.value)}
+                  onChange={handleBirthDateChange}
                   className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
@@ -171,7 +211,7 @@ function FormEmployee() {
                   id="document"
                   value={document}
                   placeholder="Documento"
-                  onChange={(e) => setDocument(e.target.value)}
+                  onChange={handleDocumentChange}
                   className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
@@ -186,7 +226,7 @@ function FormEmployee() {
                   id="email"
                   value={email}
                   placeholder="Email"
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={handleEmailChange}
                   className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
@@ -201,7 +241,7 @@ function FormEmployee() {
                   id="address"
                   value={address}
                   placeholder="Dirección"
-                  onChange={(e) => setAddress(e.target.value)}
+                  onChange={handleAddressChange}
                   className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
@@ -216,7 +256,7 @@ function FormEmployee() {
                   id="admissionDate"
                   value={admissionDate}
                   placeholder="Fecha de Ingreso"
-                  onChange={(e) => setAdmissionDate(e.target.value)}
+                  onChange={handleAdmissionDateChange}
                   className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
@@ -231,7 +271,7 @@ function FormEmployee() {
                   id="department"
                   value={department}
                   placeholder="Departamento"
-                  onChange={(e) => setDepartment(e.target.value)}
+                  onChange={handleDepartmentChange}
                   className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
@@ -246,7 +286,7 @@ function FormEmployee() {
                   id="position"
                   value={position}
                   placeholder="Puesto"
-                  onChange={(e) => setPosition(e.target.value)}
+                  onChange={handlePositionChange}
                   className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
@@ -261,7 +301,7 @@ function FormEmployee() {
                   id="user"
                   value={user}
                   placeholder="Usuario"
-                  onChange={(e) => setUser(e.target.value)}
+                  onChange={handleUserChange}
                   className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
@@ -276,15 +316,14 @@ function FormEmployee() {
                   id="password"
                   value={password}
                   placeholder="********"
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handlePasswordChange}
                   className="w-full mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:border-indigo-500 focus:outline-none"
                 />
               </div>
 
               <button
                 type="submit"
-                className="md:w-32 bg-indigo-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover-bg-indigo-500 transition ease-in-out duration-300"
-              >
+                className="md:w-32 bg-indigo-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover-bg-indigo-500 transition ease-in-out duration-300">
                 Submit
               </button>
             </form>
@@ -296,7 +335,7 @@ function FormEmployee() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default FormEmployee;
+export default FormEmployee
