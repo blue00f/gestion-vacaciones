@@ -63,34 +63,45 @@ function Calendar() {
 
   return (
     <div className="w-96 mx-auto mt-10">
-      <div date-rangepicker className="flex items-center">
-        <span className="mr-4 text-white">De</span>
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none"></div>
-          <input
-            name="start"
-            type="date"
-            value={startDate}
-            onChange={handleStartDateChange}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 text-center dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Select date start"
-          />
-        </div>
-        <span className="mx-4 text-white">Hasta</span>
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none"></div>
-          <input
-            name="end"
-            type="date"
-            value={endDate}
-            onChange={handleEndDateChange}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 text-center dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Select date end"
-          />
-        </div>
+      <div className="p-6 mr-2 bg-gray-800 sm:rounded-lg">
+        <h2 className="text-4xl text-white font-extrabold tracking-tight">
+          Ingresar solicitud de vacaciones
+        </h2>
+      </div>
+      <div date-rangepicker className="mt-4">
+        <label htmlFor="startDate" className="text-white">
+          Fecha inicial
+        </label>
+        <input
+          required
+          name="start"
+          type="date"
+          value={startDate}
+          onChange={handleStartDateChange}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 text-center dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Select date start"
+        />
+      </div>
+      <div date-rangepicker className="mt-4">
+        <label htmlFor="endDate" className="text-white">
+          Fecha final
+        </label>
+        <input
+          required
+          name="end"
+          type="date"
+          value={endDate}
+          onChange={handleEndDateChange}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 text-center dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Select date end"
+        />
       </div>
       <div className="mt-4">
+        <label htmlFor="legajoId" className="text-white">
+          Número de legajo
+        </label>
         <input
+          required
           type="text"
           value={legajoId}
           onChange={handleLegajoIdChange}
@@ -99,7 +110,11 @@ function Calendar() {
         />
       </div>
       <div className="mt-4">
+        <label htmlFor="adminId" className="text-white">
+          Número de administrador
+        </label>
         <input
+          required
           type="text"
           value={adminId}
           onChange={handleAdminIdChange}
@@ -108,11 +123,14 @@ function Calendar() {
         />
       </div>
       <div className="mt-4">
+        <label htmlFor="comentarios" className="text-white">
+          Comentarios
+        </label>
         <textarea
           value={comentarios}
           onChange={handleComentariosChange}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Comentarios"
+          placeholder=""
         />
       </div>
       <div className="flex justify-center items-center py-4">
