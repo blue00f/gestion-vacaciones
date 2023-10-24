@@ -5,8 +5,7 @@ import axios from 'axios';
 
 function Dashboard() {
   const [vacaciones, setVacaciones] = useState([]);
-  const [editMode, setEditMode] = useState(false);
-const [newState, setNewState] = useState(vacacion.estado);
+
 
 
   useEffect(() => {
@@ -19,14 +18,12 @@ const [newState, setNewState] = useState(vacacion.estado);
       });
   }, []);
 
-  const handleModificarEstado = (vacacion) => {
-    const nuevoEstado = prompt('Ingrese el nuevo estado (Aceptado, Pendiente o Rechazado):');
-    if (nuevoEstado === 'Aceptado' || nuevoEstado === 'Pendiente' || nuevoEstado === 'Rechazado') {
-      // Actualizar el estado de la vacación con el nuevo valor.
-      vacacion.estado = nuevoEstado;
-    } else {
-      alert('Estado no válido. Debe ser Aceptado, Pendiente o Rechazado.');
-    }
+  const handleModificarEstadoAceptado = (vacacion) => {
+    vacacion.estado === 'Aceptado';
+  }
+
+  const handleModificarEstadoRechazado = (vacacion) => {
+    vacacion.estado === 'Rechazado';
   }
   
   return (
@@ -65,10 +62,21 @@ const [newState, setNewState] = useState(vacacion.estado);
                   >
                     {vacacion.estado}
                   </span>
-                  <button onClick={() => handleModificarEstado(vacacion)}>Modificar</button>
+                  <button
+               className="bg-gray-500 mt-5 hover:bg-gray-600 text-white font-bold w-full py-3"
+               type="submit" onClick={() => handleModificarEstadoAceptado(vacacion)}>
+                Aceptar
+             </button>
+             <button
+               className="bg-gray-500 mt-5 hover:bg-gray-600 text-white font-bold w-full py-3"
+               type="submit" onClick={() => handleModificarEstadoRechazado(vacacion)}>
+                Rechazar
+             </button>
                 </td>
               </tr>
             ))}
+
+            
           </tbody>
         </table>
         
