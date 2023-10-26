@@ -32,7 +32,7 @@ function Register() {
   const handleSubmit = async () => {
     setIsLoading(true)
     setMessage("")
-
+  
     try {
       const response = await axios.post("http://localhost:1234/admins", {
         nombre: userName,
@@ -40,20 +40,28 @@ function Register() {
         correo: email,
         usuario: user,
         clave: password,
-      })
-
-      if (response.status === 200) {
-        setMessage("Usuario registrado.")
+      });
+  
+      if (response.status === 200 || response.status === 201 || response.status === 202  ) {
+        setMessage("Usuario registrado exitosamente.");
       } else {
-        setMessage("Error al registrar al usuario.")
+        setMessage("Error al registrar al usuario. Código de estado: " + response.status);
       }
     } catch (error) {
-      setMessage("Error en la solicitud: " + error.message)
+      if (error.response) {
+        // El servidor respondió con un código de estado diferente de 200
+        setMessage("Error en la solicitud: " + error.response.status + " - " + error.response.data);
+      } else if (error.request) {
+        // No se recibió una respuesta del servidor
+        setMessage("No se pudo conectar al servidor.");
+      } else {
+        // Otro tipo de error
+        setMessage("Error desconocido: " + error.message);
+      }
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
-
   return (
     <>
       <div className="bg-gray-800 rounded py-16 px-12 m-16 flex flex-col items-center justify-center">

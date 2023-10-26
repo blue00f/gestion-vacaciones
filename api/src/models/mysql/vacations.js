@@ -20,21 +20,26 @@ export class VacationModel {
     return vacations[0]
   }
 
-  static async createVacation({ input }) {
-    const { fechaInicio, fechaFin, comentarios, legajo_id, administrador_id } =
-      input
-    try {
-      await connection.query('CALL usp_AltaVacacion (?,?,?,?,?);', [
-        fechaInicio,
-        fechaFin,
-        comentarios,
-        legajo_id,
-        administrador_id,
-      ])
-    } catch (e) {
-      throw new Error('Error al crear las vacaciones')
+ static async createVacation({ input }) {
+  const { fechaInicio, fechaFin, comentarios, legajo_id, administrador_id } = input;
+  try {
+    await connection.query('CALL usp_AltaVacacion (?,?,?,?,?);', [
+      fechaInicio,
+      fechaFin,
+      comentarios,
+      legajo_id,
+      administrador_id,
+    ]);
+  } catch (e) {
+    
+    if (e instanceof Error) {
+     
+      throw e; 
     }
+     
   }
+}
+  
 
   static async updateVacationById({ id, input }) {
     const { estado } = input;
