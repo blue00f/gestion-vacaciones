@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import Swal from "sweetalert2"
 import axios from 'axios'
-function Login({ isLoggedIn, setIsLoggedIn} ,{isAdmin, setIsAdmin}) {
+function Login({ isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin, usernameProp, setUsernameProp}) {
   const [Username, setUsername] = useState("")
   const [Password, setPassword] = useState("")
   const [message, setMessage] = useState("")
@@ -43,9 +43,13 @@ function Login({ isLoggedIn, setIsLoggedIn} ,{isAdmin, setIsAdmin}) {
           setIsLoggedIn(true);
           setMessage(data.message);
           setUsername(data.username);
-          if(data.rol === false){
-            setIsAdmin(false)
-          }
+          setUsernameProp(data.username);
+          
+          {data.rol ? (
+            setIsAdmin(true)
+          )
+          : 
+          setIsAdmin(false)}
            
         } else {
           
@@ -109,18 +113,23 @@ function Login({ isLoggedIn, setIsLoggedIn} ,{isAdmin, setIsAdmin}) {
               required
             />
           </div>
-          <div className="my-4 flex items-center text-white ">
-            <input className="h-4 w-4 mr-2" type="checkbox" id="userRemember" />
+          <div className="mt-3 flex items-center text-white ">
+            <input className="h-4 w-4 mr-2 " type="checkbox" id="userRemember" />
             <label for="userRemember">Recuerdame</label>
           </div>
-          <Link className="text-white " to="/register">
-            <p>¿No tienes una cuenta?</p>
-          </Link>
           <button
-            className="w-full bg-indigo-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover-bg-indigo-500 transition ease-in-out duration-300"
+            className="w-full mb-2 bg-indigo-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover-bg-indigo-500 transition ease-in-out duration-300"
             type="submit" onChange={handleSubmit}>
             Iniciar sesión
           </button>
+          <p className="text-white"> ¿No tienes una cuenta?</p>
+          <Link className="text-green-600 " to="/register">
+          <p
+            className="w-full text-center mb-2 bg-green-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover-bg-indigo-500 transition ease-in-out duration-300"
+            >
+            Registrarse
+          </p>
+          </Link>
         </form>
         <div className="text-white">
          

@@ -19,9 +19,9 @@ function Dashboard() {
   
   const handleModificarEstadoAceptado = (vacacion) => {
   
-    setEstadoVacaciones('Aceptado');
+  setEstadoVacaciones('Aceptado');
   axios.patch(`http://localhost:1234/vacations/${vacacion.id_vacacion}`, {
-    estado: estadoVacaciones
+  estado: estadoVacaciones
   })
     .then(response => {
       vacacion.estado = estadoVacaciones;
@@ -33,8 +33,8 @@ function Dashboard() {
 
   const handleModificarEstadoRechazado = (vacacion) => {
     
-    setEstadoVacaciones('Rechazado');
-    axios.patch(`http://localhost:1234/vacations/${vacacion.id_vacacion}`, {
+  setEstadoVacaciones('Rechazado');
+  axios.patch(`http://localhost:1234/vacations/${vacacion.id_vacacion}`, {
     estado: estadoVacaciones
   })
     .then(response => {
@@ -64,7 +64,8 @@ function Dashboard() {
             </tr>
           </thead>
           <tbody>
-            {vacaciones.map((vacacion) => (
+            {
+            vacaciones.map((vacacion) => (
               
               <tr key={vacacion.id_vacacion} className="bg-gray-800">
                 <td className="p-3">
@@ -76,9 +77,9 @@ function Dashboard() {
                 <td className="p-3">
                  
                   <span
-                    className={`${vacacion.estado === 'Aceptado' ? 'bg-green-400' :
-                      vacacion.estado === 'Pendiente' ? 'bg-yellow-400' :
-                        vacacion.estado === 'Rechazado' ? 'bg-red-400' :
+                    className={`${vacacion.estado === 'aceptado' ? 'bg-green-400' :
+                      vacacion.estado === 'pendiente' ? 'bg-yellow-400' :
+                        vacacion.estado === 'rechazado' ? 'bg-red-400' :
                           'bg-yellow-400'
                       } text-white rounded-md px-2`}
                   >
@@ -96,6 +97,7 @@ function Dashboard() {
              </button>
              
                 </td>
+                {console.log(vacacion.id_vacacion)}
               </tr>
             ))}
    

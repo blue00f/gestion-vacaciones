@@ -15,24 +15,31 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
-
+  const [usernameProp, setUsernameProp] = useState (false)
+  
+  const logOut = () => {
+    setIsLoggedIn(false)
+    window.location.reload();
+  }
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} isAdmin={isAdmin}/>
+      <Header isLoggedIn={isLoggedIn} isAdmin={isAdmin} usernameProp={usernameProp} logOut={logOut}/>
       <Routes>
         <Route path="*" element={<Navigate to="/login" />} />
-        <Route exact path="/login" element={<Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
+        <Route exact path="/login" element={<Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isAdmin={isAdmin} setIsAdmin={setIsAdmin} usernameProp={usernameProp} setUsernameProp={setUsernameProp}/>} />
         <Route exact path="/register" element={<Register />} />
     
-        
         {isLoggedIn ? (
-
-          <>
-        <Route exact path="/calendar" element={<Calendar isLoggedIn={isLoggedIn} />} />
-        <Route exact path="/dashboard" element={<Dashboard isLoggedIn={isLoggedIn}  />} />
-        <Route exact path="/FormEmployee" element={<FormEmployee isLoggedIn={isLoggedIn}  />} />
-             
-          </>
+          isAdmin?(
+            <>
+            <Route exact path="/calendar" element={<Calendar isLoggedIn={isLoggedIn} />} />
+            <Route exact path="/dashboard" element={<Dashboard isLoggedIn={isLoggedIn}  />} />
+            <Route exact path="/FormEmployee" element={<FormEmployee isLoggedIn={isLoggedIn}  />} />
+                 
+              </>
+          ):
+            <Route exact path="/calendar" element={<Calendar isLoggedIn={isLoggedIn} />} />
+          
           
         ) : (
           null
