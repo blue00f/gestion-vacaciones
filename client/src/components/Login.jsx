@@ -118,14 +118,14 @@ function Login({ isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin, usernameProp, s
             <label for="userRemember">Recuerdame</label>
           </div>
           <button
-            className="w-full mb-2 bg-indigo-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover-bg-indigo-500 transition ease-in-out duration-300"
+            className="w-full text-center mb-2 bg-green-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover-bg-indigo-500 transition ease-in-out duration-300"
             type="submit" onChange={handleSubmit}>
             Iniciar sesión
           </button>
           <p className="text-white"> ¿No tienes una cuenta?</p>
           <Link className="text-green-600 " to="/register">
           <p
-            className="w-full text-center mb-2 bg-green-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover-bg-indigo-500 transition ease-in-out duration-300"
+            className=" w-full text-center mb-2 bg-purple-800 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover-bg-indigo-500 transition ease-in-out duration-300 "
             >
             Registrarse
           </p>

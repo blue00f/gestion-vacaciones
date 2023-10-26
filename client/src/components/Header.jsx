@@ -6,7 +6,7 @@ function Header({ isLoggedIn, isAdmin, usernameProp, logOut }) {
     <header>
       <nav className="bg-gray-800 border-gray-200 px-4 lg:px-6 py-2.5">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-          <a href="https://flowbite.com" className="flex items-center">
+          <a href="#" className="flex items-center">
             <img
               src="./logo-empresa.png"
               className="mr-3 h-12 sm:h-10"
@@ -19,10 +19,10 @@ function Header({ isLoggedIn, isAdmin, usernameProp, logOut }) {
           {isLoggedIn ? (
             <div className="flex items-center lg:order-2">
               {isAdmin ?
-                (<h1 span className="text-purple-500 mr-10 ">¡Hola, Administrador/a <span className="capitalize"> {usernameProp}</span>!  </h1>)
+                (<h1 span className="text-green-400 mr-10 ">¡Hola, Administrador/a <span className="capitalize"> {usernameProp}</span>!  </h1>)
                 : <h1 span className="text-white mr-5">¡Hola,<span className="capitalize"> {usernameProp}</span>!  </h1>}
 
-              <button class="bg-green-500 hover:bg-green-400 text-white font-bold px-2 border-b-4 border-green-800 hover:border-green-500 rounded" onClick={logOut}>
+              <button class="bg-purple-500 hover:bg-purple-400 text-white font-bold px-2 border-b-4 border-purple-800 hover:border-purple-500 rounded" onClick={logOut}>
                 Cerrar Sesión
               </button>
 
@@ -104,7 +104,7 @@ function Header({ isLoggedIn, isAdmin, usernameProp, logOut }) {
               <div
                 className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
                 id="mobile-menu-2">
-                <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                <ul className="flex flex-col mt-4  font-medium lg:flex-row lg:space-x-8 lg:mt-0">
 
                   <li>
                     <Link
@@ -132,8 +132,7 @@ function Header({ isLoggedIn, isAdmin, usernameProp, logOut }) {
             ) : <div
               className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
               id="mobile-menu-2">
-              <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                
+              <ul className="flex flex-col ml-28 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                 <li>
                   <Link
                     to="calendar"

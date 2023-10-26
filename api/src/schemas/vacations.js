@@ -10,9 +10,11 @@ const vacationSchema = z.object({
     if (!value) {
       return 'Pendiente';
     }
-    const lowerCaseValue = value.toLowerCase();
-    if (lowerCaseValue === 'aceptado' || lowerCaseValue === 'rechazado') {
-      return lowerCaseValue;
+    if (typeof value === 'string') {
+      const lowerCaseValue = value.toLowerCase();
+      if (lowerCaseValue === 'aceptado' || lowerCaseValue === 'rechazado') {
+        return lowerCaseValue;
+      }
     }
   }),
 })

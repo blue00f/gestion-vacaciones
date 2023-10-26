@@ -61,6 +61,7 @@ function FormEmployee() {
   }
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     setIsLoading(true)
     setMessage("")
 
@@ -159,6 +160,7 @@ function FormEmployee() {
           <label htmlFor="document" className="text-white">
             Documento
           </label>
+     
           <input
             required
             type="text"
