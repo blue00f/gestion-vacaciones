@@ -14,23 +14,26 @@ import "flowbite-datepicker"
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn}/>
+      <Header isLoggedIn={isLoggedIn} isAdmin={isAdmin}/>
       <Routes>
         <Route path="*" element={<Navigate to="/login" />} />
         <Route exact path="/login" element={<Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
         <Route exact path="/register" element={<Register />} />
+    
+        
+        {isLoggedIn ? (
+
+          <>
         <Route exact path="/calendar" element={<Calendar isLoggedIn={isLoggedIn} />} />
         <Route exact path="/dashboard" element={<Dashboard isLoggedIn={isLoggedIn}  />} />
         <Route exact path="/FormEmployee" element={<FormEmployee isLoggedIn={isLoggedIn}  />} />
-        
-        {isLoggedIn ? (
-          <>
-             
              
           </>
+          
         ) : (
           null
         )}

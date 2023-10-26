@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import Swal from "sweetalert2"
-
-function Login({ isLoggedIn, setIsLoggedIn }) {
+import axios from 'axios'
+function Login({ isLoggedIn, setIsLoggedIn} ,{isAdmin, setIsAdmin}) {
   const [Username, setUsername] = useState("")
   const [Password, setPassword] = useState("")
+  const [message, setMessage] = useState("")
+
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value)
@@ -15,48 +17,62 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
-
-    setMessage("Enviando solicitud...")
-
+    event.preventDefault();
+  
+    setMessage("Enviando solicitud...");
+  
     try {
-      const response = await fetch(`${URL_POSTS}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          Username,
-          Password,
-        }),
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        Swal.fire({
-          icon: "success",
-          title: "Inicio de Sesión Exitoso",
-          text: data.message,
-        })
-        setIsLoggedIn(true)
-        setMessage(data.message)
-        setUsername(data.username)
+      const requestData = {
+        username: Username,
+        password: Password
+      };
+  
+      const response = await axios.post("http://localhost:1234/admins/login", requestData);
+  
+      if (response.status === 200) {
+        const data = response.data;
+  
+        if (data.success) {
+         
+          Swal.fire({
+            icon: "success",
+            title: "Inicio de Sesión Exitoso",
+            text: data.message,
+          });
+  
+          setIsLoggedIn(true);
+          setMessage(data.message);
+          setUsername(data.username);
+          if(data.rol === false){
+            setIsAdmin(false)
+          }
+           
+        } else {
+          
+          Swal.fire({
+            icon: "error",
+            title: "Inicio de Sesión Fallido",
+            text: data.message,
+          });
+  
+          setIsLoggedIn(false);
+          setMessage(data.message);
+        }
       } else {
+       
         Swal.fire({
           icon: "error",
-          title: "Inicio de Sesión Fallido",
-          text: data.message,
-        })
-        setIsLoggedIn(false)
-        setMessage(data.message)
+          title: "Error de Solicitud",
+          text: "Hubo un problema al enviar la solicitud al servidor.",
+        });
       }
-      setMessage(data.message) // Actualiza el estado del mensaje con la respuesta del servidor
+    
     } catch (error) {
-      setMessage("Error en la solicitud: " + error.message)
-      console.error("Error al enviar la solicitud:", error)
+      setMessage("Error en la solicitud: " + error.message);
+      console.error("Error al enviar la solicitud:", error);
     }
-  }
+  };
+  
 
   return (
     <>
@@ -68,20 +84,20 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
         />
         <form method="post" className="mt-8 mb-4" onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label for="userEmail" className="sr-only">
+            <label for="userName" className="sr-only">
               Nombre de usuario
             </label>
             <input
               className="border-solid border border-gray-400 rounded px-2 py-3"
-              type="email"
-              id="userEmail"
+              type="text"
+              id="userName"
               placeholder="Nombre de usuario"
               onChange={handleUsernameChange}
               required
             />
           </div>
           <div>
-            <label for="userEmail" className="sr-only">
+            <label for="userPassword" className="sr-only">
               Contraseña
             </label>
             <input
@@ -102,10 +118,14 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
           </Link>
           <button
             className="w-full bg-indigo-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover-bg-indigo-500 transition ease-in-out duration-300"
-            type="submit">
+            type="submit" onChange={handleSubmit}>
             Iniciar sesión
           </button>
         </form>
+        <div className="text-white">
+         
+        {message && <p>{message}</p>}
+      </div>
       </div>
     </>
   )

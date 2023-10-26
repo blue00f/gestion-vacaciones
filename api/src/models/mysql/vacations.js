@@ -37,7 +37,7 @@ export class VacationModel {
   }
 
   static async updateVacationById({ id, input }) {
-    const { estado } = input
+    const { estado } = input;
     try {
       const [vacations] = await connection.query(
         'CALL usp_ModificarVacacion(?,?);',

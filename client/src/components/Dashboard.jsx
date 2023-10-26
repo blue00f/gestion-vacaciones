@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
-
-import './Dashboard.css';
+import'./Dashboard.css';
 import axios from 'axios';
 
 function Dashboard() {
+  const [estadoVacaciones, setEstadoVacaciones] = useState();
   const [vacaciones, setVacaciones] = useState([]);
-
-
 
   useEffect(() => {
     axios.get('http://localhost:1234/vacations')
@@ -18,14 +16,36 @@ function Dashboard() {
       });
   }, []);
 
+  
   const handleModificarEstadoAceptado = (vacacion) => {
-    vacacion.estado === 'Aceptado';
+  
+    setEstadoVacaciones('Aceptado');
+  axios.patch(`http://localhost:1234/vacations/${vacacion.id_vacacion}`, {
+    estado: estadoVacaciones
+  })
+    .then(response => {
+      vacacion.estado = estadoVacaciones;
+    })
+    .catch(error => {
+      console.error('Error al actualizar la vacación:', error);
+    }); 
   }
 
   const handleModificarEstadoRechazado = (vacacion) => {
-    vacacion.estado === 'Rechazado';
+    
+    setEstadoVacaciones('Rechazado');
+    axios.patch(`http://localhost:1234/vacations/${vacacion.id_vacacion}`, {
+    estado: estadoVacaciones
+  })
+    .then(response => {
+      vacacion.estado = estadoVacaciones;
+     
+    })
+    .catch(error => {
+      console.error('Error al actualizar la vacación:', error);
+    });  
   }
-  
+ 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
       <div>
@@ -44,8 +64,9 @@ function Dashboard() {
             </tr>
           </thead>
           <tbody>
-            {vacaciones.map((vacacion, index) => (
-              <tr key={index} className="bg-gray-800">
+            {vacaciones.map((vacacion) => (
+              
+              <tr key={vacacion.id_vacacion} className="bg-gray-800">
                 <td className="p-3">
                   <div className="text-white font-semibold">{vacacion.nombre} {vacacion.apellido}</div>
                 </td>
@@ -53,6 +74,7 @@ function Dashboard() {
                 <td className="p-3">{new Date(vacacion.fechaInicio).toLocaleDateString()}</td>
                 <td className="p-3">{new Date(vacacion.fechaFin).toLocaleDateString()}</td>
                 <td className="p-3">
+                 
                   <span
                     className={`${vacacion.estado === 'Aceptado' ? 'bg-green-400' :
                       vacacion.estado === 'Pendiente' ? 'bg-yellow-400' :
@@ -64,18 +86,19 @@ function Dashboard() {
                   </span>
                   <button
                className="bg-gray-500 mt-5 hover:bg-gray-600 text-white font-bold w-full py-3"
-               type="submit" onClick={() => handleModificarEstadoAceptado(vacacion)}>
+               type="submit" onClick={()=>handleModificarEstadoAceptado(vacacion)}>
                 Aceptar
              </button>
              <button
                className="bg-gray-500 mt-5 hover:bg-gray-600 text-white font-bold w-full py-3"
-               type="submit" onClick={() => handleModificarEstadoRechazado(vacacion)}>
+              type="submit" onClick={()=>handleModificarEstadoRechazado(vacacion)}>
                 Rechazar
              </button>
+             
                 </td>
               </tr>
             ))}
-
+   
             
           </tbody>
         </table>
@@ -83,6 +106,7 @@ function Dashboard() {
       </div>
     </div>
   );
+  ;
 }
 
 export default Dashboard;

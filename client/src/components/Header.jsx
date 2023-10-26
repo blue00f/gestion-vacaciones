@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
-function Header() {
+function Header({isLoggedIn}) {
+ 
   return (
     <header>
       <nav className="bg-gray-800 border-gray-200 px-4 lg:px-6 py-2.5">
@@ -55,35 +56,41 @@ function Header() {
               </svg>
             </button>
           </div>
-          <div
-            className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
-            id="mobile-menu-2">
-            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-              <li></li>
-              <li>
-                <Link
-                  to="dashboard"
-                  className="block py-2 pr-4 pl-3 border-b lg:border-0 lg:hover:text-primary-700 lg:p-0 text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700">
-                  Vacaciones
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="formemployee"
-                  className="block py-2 pr-4 pl-3 border-b lg:border-0 lg:hover:text-primary-700 lg:p-0 text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700">
-                  Empleados
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="calendar"
-                  className="block py-2 pr-4 pl-3 border-b lg:border-0 lg:hover:text-primary-700 lg:p-0 text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700">
-                  Calendarios
-                </Link>
-              </li>
-            </ul>
+       
+          {isLoggedIn ? ( 
+            <div
+              className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
+              id="mobile-menu-2">
+              <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                <li></li>
+                <li>
+                  <Link
+                    to="dashboard"
+                    className="block py-2 pr-4 pl-3 border-b lg:border-0 lg:hover:text-primary-700 lg:p-0 text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700">
+                    Vacaciones
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="formemployee"
+                    className="block py-2 pr-4 pl-3 border-b lg:border-0 lg:hover:text-primary-700 lg:p-0 text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700">
+                    Empleados
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="calendar"
+                    className="block py-2 pr-4 pl-3 border-b lg:border-0 lg:hover:text-primary-700 lg:p-0 text-gray-400 lg:hover:text-white hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700">
+                    Calendarios
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          )
+          : null } 
+
           </div>
-        </div>
+        
       </nav>
     </header>
   )

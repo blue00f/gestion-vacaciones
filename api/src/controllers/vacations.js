@@ -35,13 +35,13 @@ export class VacationController {
   }
 
   updateVacationById = async (req, res) => {
-    const result = validatePartialVacation(req.body)
-    const { id } = req.params
+    const result = validatePartialVacation(req.body);
+    const { id } = req.params;
 
     try {
       await this.vacationModel.updateVacationById({
         id,
-        input: result.data,
+        input: result.data
       })
       return res.status(200).json({ message: 'Vacaciones actualizadas' })
     } catch (e) {
