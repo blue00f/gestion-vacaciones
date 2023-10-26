@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `bd_gestion_vacaciones` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `bd_gestion_vacaciones`;
 -- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
 -- Host: localhost    Database: bd_gestion_vacaciones
@@ -34,7 +32,7 @@ CREATE TABLE `administradores` (
   PRIMARY KEY (`id_administrador`),
   KEY `fk_usuario_administrador` (`usuario_id`),
   CONSTRAINT `fk_usuario_administrador` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +41,7 @@ CREATE TABLE `administradores` (
 
 LOCK TABLES `administradores` WRITE;
 /*!40000 ALTER TABLE `administradores` DISABLE KEYS */;
-INSERT INTO `administradores` VALUES (1,3,'Bruno','Roca','brunoroca@gmail.com','Inactivo'),(2,8,'Sofia','Reynaga','sofi@gmail.com','Inactivo'),(3,9,'Percy','Mamani','perciicici@gmail.com','Inactivo'),(4,11,'Eduardo','López','edu@gmail.com','Activo'),(5,13,'Maria','Jose','jose@gmail.com','Activo'),(6,15,'Nicole','Saravia','nikinicole@gmail.com','activo'),(7,16,'Janrek','Araujo','eldeivii@gmail.com','Activo'),(8,17,'Lucas','Strano','bigoton@gmail.com','Inactivo'),(9,19,'Jazmin','Valenzuela','jazz@gmail.com','Activo'),(10,20,'Lionel','Messi','lio@gmail.com','Activo');
+INSERT INTO `administradores` VALUES (1,3,'Bruno','Roca','brunoroca@gmail.com','Inactivo'),(2,8,'Sofia','Reynaga','sofi@gmail.com','Inactivo'),(3,9,'Percy','Mamani','perciicici@gmail.com','Inactivo'),(4,11,'Eduardo','López','edu@gmail.com','Activo'),(5,13,'Maria','Jose','jose@gmail.com','Activo'),(6,15,'Nicole','Saravia','nikinicole@gmail.com','activo'),(7,16,'Janrek','Araujo','eldeivii@gmail.com','Activo'),(8,17,'Lucas','Strano','bigoton@gmail.com','Inactivo'),(9,19,'Jazmin','Valenzuela','jazz@gmail.com','Activo'),(10,20,'Lionel','Messi','lio@gmail.com','Activo'),(11,24,'Sergio','Massa','sergio@gmail.com','Activo'),(12,26,'Mauricio','Miau','mauricio@gmail.com','Activo'),(13,28,'david','janrek','david@gmail.com','Activo');
 /*!40000 ALTER TABLE `administradores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +65,7 @@ CREATE TABLE `empleados` (
   UNIQUE KEY `uc_documento` (`documento`),
   KEY `fk_usuario_empleado` (`usuario_id`),
   CONSTRAINT `fk_usuario_empleado` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +74,7 @@ CREATE TABLE `empleados` (
 
 LOCK TABLES `empleados` WRITE;
 /*!40000 ALTER TABLE `empleados` DISABLE KEYS */;
-INSERT INTO `empleados` VALUES (1,1,'Rodrigo','Gonzalez','2005-04-21','48192857','fabigonza20@gmail.com','Av. Chiclana 2021'),(2,4,'Diego','Maradona','1960-02-12','29847189','diego10@gmail.com','Av. Libertad 291'),(3,5,'Julián','Álvarez','1996-11-21','41827948','juli@outlook.com','Av. Mundial 2022'),(4,10,'Bob','Esponja','2001-09-11','12382983','bobi@outlook.com','Av. Chiclana 612982'),(5,18,'Ivo','Zatoni','1960-10-11','41827958','ivozatoni@gmail.com','Zavaleta 204'),(6,21,'Franco','Perez','1962-10-11','41827952','frankito@gmail.com','Zavaleta 202');
+INSERT INTO `empleados` VALUES (1,1,'Rodrigo','Gonzalez','2005-04-21','48192857','fabigonza20@gmail.com','Av. Chiclana 2021'),(2,4,'Diego','Maradona','1960-02-12','29847189','diego10@gmail.com','Av. Libertad 291'),(3,5,'Julián','Álvarez','1996-11-21','41827948','juli@outlook.com','Av. Mundial 2022'),(4,10,'Bob','Esponja','2001-09-11','12382983','bobi@outlook.com','Av. Chiclana 612982'),(5,18,'Ivo','Zatoni','1960-10-11','41827958','ivozatoni@gmail.com','Zavaleta 204'),(6,21,'Franco','Perez','1962-10-11','41827952','frankito@gmail.com','Zavaleta 202'),(7,22,'Mario','Buschiazzo','1985-06-21','82918738','marito@gmail.com','Av zavaleta 2918'),(8,23,'Pablo','Bonet','1987-02-03','82718928','pablo@gmail.com','zasda 2819'),(9,27,'Sandro','Armesto','2002-06-04','91827918','sandroarmestito@gmail.com','zavalaeeta 928');
 /*!40000 ALTER TABLE `empleados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,7 +96,7 @@ CREATE TABLE `legajos` (
   PRIMARY KEY (`id_legajo`),
   KEY `fk_empleado` (`empleado_id`),
   CONSTRAINT `fk_empleado` FOREIGN KEY (`empleado_id`) REFERENCES `empleados` (`id_empleado`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,7 +105,7 @@ CREATE TABLE `legajos` (
 
 LOCK TABLES `legajos` WRITE;
 /*!40000 ALTER TABLE `legajos` DISABLE KEYS */;
-INSERT INTO `legajos` VALUES (1,1,'2023-09-21',0,'Producción','Armar notebooks','Inactivo'),(2,2,'2010-12-21',13,'Servicio Técnico','Sysadmin','Inactivo'),(3,3,'2017-02-12',6,'Servicio Técnico','Testing','Activo'),(4,4,'2012-01-20',11,'Servicio Técnico','Reparador de notebooks','Activo'),(5,5,'2016-08-31',7,'Selección y contratación','Especialista en reclutamiento','activo'),(6,6,'2019-08-31',4,'Selección y contratación','Especialista en reclutamiento','activo');
+INSERT INTO `legajos` VALUES (1,1,'2023-09-21',0,'Producción','Armar notebooks','Inactivo'),(2,2,'2010-12-21',13,'Servicio Técnico','Sysadmin','Inactivo'),(3,3,'2017-02-12',6,'Servicio Técnico','Testing','Activo'),(4,4,'2012-01-20',11,'Servicio Técnico','Reparador de notebooks','Activo'),(5,5,'2016-08-31',7,'Selección y contratación','Especialista en reclutamiento','activo'),(6,6,'2019-08-31',4,'Selección y contratación','Especialista en reclutamiento','activo'),(7,7,'2021-06-07',2,'Servicio Técnico','ingeniero de sistemas','Activo'),(8,8,'2023-01-31',0,'servicio tenico','ingeniero','Activo'),(9,9,'2012-01-10',11,'servicio tecnico','ingeniero','Activo');
 /*!40000 ALTER TABLE `legajos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,7 +123,7 @@ CREATE TABLE `usuarios` (
   `estado` varchar(20) NOT NULL DEFAULT 'Activo',
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `uc_usuario` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -134,7 +132,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'fabigonza','fabigonza','Inactivo'),(3,'bruno','bruno','Inactivo'),(4,'diego10','diego10','Inactivo'),(5,'julianAlv','julianAlv','Activo'),(6,'eldeivi','eldeivi','Activo'),(8,'sofia123','sofia123','Inactivo'),(9,'percy','percy','Inactivo'),(10,'elbobi123','elbobi123','Activo'),(11,'edu123','edu123','Activo'),(13,'jose123','jose123','Activo'),(15,'nicole123','nicole123','activo'),(16,'deivi123','deivi123','Activo'),(17,'lucas123','lucas123','Inactivo'),(18,'ivo','ivo','activo'),(19,'jaz123','jaz123','Activo'),(20,'lio123','lio123','Activo'),(21,'franco','franco','activo');
+INSERT INTO `usuarios` VALUES (1,'fabigonza','fabigonza','Inactivo'),(3,'bruno','bruno','Inactivo'),(4,'diego10','diego10','Inactivo'),(5,'julianAlv','julianAlv','Activo'),(6,'eldeivi','eldeivi','Activo'),(8,'sofia123','sofia123','Inactivo'),(9,'percy','percy','Inactivo'),(10,'elbobi123','elbobi123','Activo'),(11,'edu123','edu123','Activo'),(13,'jose123','jose123','Activo'),(15,'nicole123','nicole123','activo'),(16,'deivi123','deivi123','Activo'),(17,'lucas123','lucas123','Inactivo'),(18,'ivo','ivo','activo'),(19,'jaz123','jaz123','Activo'),(20,'lio123','lio123','Activo'),(21,'franco','franco','activo'),(22,'marito','marito','Activo'),(23,'pablo','pablo','Activo'),(24,'sergio','sergio','Activo'),(26,'mauricio','mauricio','Activo'),(27,'sandro','sandro','Activo'),(28,'david','david','Activo');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,7 +159,7 @@ CREATE TABLE `vacaciones` (
   CONSTRAINT `fk_administrador` FOREIGN KEY (`administrador_id`) REFERENCES `administradores` (`id_administrador`),
   CONSTRAINT `fk_legajo` FOREIGN KEY (`legajo_id`) REFERENCES `legajos` (`id_legajo`),
   CONSTRAINT `chk_diasTomados` CHECK (((`diasTomados` >= 1) and (`diasTomados` <= 28)))
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,7 +168,7 @@ CREATE TABLE `vacaciones` (
 
 LOCK TABLES `vacaciones` WRITE;
 /*!40000 ALTER TABLE `vacaciones` DISABLE KEYS */;
-INSERT INTO `vacaciones` VALUES (1,1,1,4,'2023-10-16','2023-10-19','2023-10-16 17:28:59','Pendiente','vacacione sfamiliares'),(2,3,5,3,'2023-10-16','2023-10-18','2023-10-16 17:42:23','aceptado','reposo medico');
+INSERT INTO `vacaciones` VALUES (1,1,1,4,'2023-10-16','2023-10-19','2023-10-16 17:28:59','Pendiente','vacacione sfamiliares'),(2,3,5,3,'2023-10-16','2023-10-18','2023-10-16 17:42:23','aceptado','reposo medico'),(3,4,5,12,'2023-10-17','2023-10-28','2023-10-17 00:50:57','Pendiente','reposo medico'),(4,2,1,5,'2023-10-22','2023-10-26','2023-10-22 22:58:31','Pendiente','motivos familiares'),(5,9,2,7,'2023-10-23','2023-10-29','2023-10-23 00:18:23','Pendiente','vacaciones de verano');
 /*!40000 ALTER TABLE `vacaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -361,6 +359,27 @@ BEGIN
     ELSE
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El ID ingresado no pertenece a ningun empleado';
     END IF;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `usp_ConsultarIdentificadoresUsuarios` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`administrador`@`localhost` PROCEDURE `usp_ConsultarIdentificadoresUsuarios`()
+BEGIN
+    SELECT u.nombre, u.clave, e.documento
+    FROM usuarios u
+    LEFT JOIN empleados e on u.id_usuario = e.usuario_id;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -581,4 +600,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-16 18:07:37
+-- Dump completed on 2023-10-26  0:48:22
