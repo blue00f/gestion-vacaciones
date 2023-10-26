@@ -24,4 +24,6 @@ grant execute on procedure usp_ConsultarTodosLosAdministradores to 'administrado
 grant execute on procedure usp_AltaVacacion to 'administrador'@'localhost';
 grant execute on procedure usp_ModificarVacacion to 'administrador'@'localhost';
 grant execute on procedure usp_ConsultarTodasLasVacaciones to 'administrador'@'localhost';
+
+grant execute on procedure usp_ConsultarIdentificadoresUsuarios to 'administrador'@'localhost';
 flush privileges;
